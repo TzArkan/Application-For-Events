@@ -18,32 +18,32 @@ public class AdminOptiuni extends JFrame {
         private JFrame f,g,h;
 
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == b1) {
+            /*if (e.getSource() == b1) {
                 if (f == null) f = new VizualizareEveniment(AdminOptiuni.this);
                 f.setLocationRelativeTo(null);
                 f.setSize(300, 150);
                 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 f.setVisible(true);
                 setVisible(false);
-}
+            }*/
             if (e.getSource() == b2) {
                 if (g == null) g = new AdaugareEveniment(AdminOptiuni.this);
                 g.setLocationRelativeTo(null);
                 g.setVisible(true);
-                g.setSize(500,200);
+                g.setSize(700,200);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setVisible(false);
-            
-            if (e.getSource() == b3) {
+            }
+            /*if (e.getSource() == b3) {
                 if (h == null) h = new StergereEveniment(AdminOptiuni.this);
                 h.setLocationRelativeTo(null);
                 h.setVisible(true);
                 h.setSize(300, 150);
                 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 setVisible(false);
-}
+            }*/
         }
-    }
+        
     }
 
     public AdminOptiuni(JFrame fereastraVeche) {

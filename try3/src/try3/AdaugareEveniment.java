@@ -9,47 +9,50 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class AdaugareEveniment extends JFrame{
     private JLabel[] l;
+    private JLabel l0;
     private JTextField[] t;
-    private JCheckBox c;
-    private JButton b1,b2, b3;
+    private JButton b1,b2,b3;
     private GridBagConstraints gbc;
     private JPanel p;
+    private JComboBox cb;
     public AdaugareEveniment(JFrame parentFrame){
         super("Adaugare de Evenimente");
-        String[] etichete={"IDProdus", "UPC", "Cantitate", "Pret", "Total", "Platit", "Rest de bani"};
+        String[] etichete={"Numele evenimentului","Data evenimentului", "Ora evenimentului","Locatia Evenimentului", "Pretul unui bilet", "Platit", "Rest de bani"};
         l=new JLabel[7];
         t=new JTextField[7];
               for(int i=0; i<7; i++) {
             l[i]=new JLabel(etichete[i]);
             t[i]=new JTextField(10);
         }
-                
-        c=new JCheckBox("Este un produs sezonier? Da/Nu", false);
+        l0=new JLabel("Tipul evenimentului");        
+        cb=new JComboBox(new String[]{"Muzica","Inaugurari","Lansare de carte","Sport","Expozitii de arta","Teatru","Film","Festival"});
         GridBagLayout gbl=new GridBagLayout();
         gbc=new GridBagConstraints();
-         p=new JPanel(gbl);
-         
-        adaugaConstrangeri(l[0],0, 0, 1, 1, GridBagConstraints.WEST, 0, 10,0);
-        adaugaConstrangeri(t[0],0, 1, 1, 1, GridBagConstraints.CENTER, 0, 10, 0);
-        adaugaConstrangeri(l[1],0, 2, 1, 1, GridBagConstraints.WEST, GridBagConstraints.BOTH, 10,0);
-        adaugaConstrangeri(t[1],0, 3, 1, 1, GridBagConstraints.CENTER, 0, 10, 0);
-        adaugaConstrangeri(c,1, 0, 2, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,10,0);
-        adaugaConstrangeri(l[2],1, 2, 1, 1, GridBagConstraints.WEST, 0,10,0);
-         adaugaConstrangeri(t[2],1, 3, 1, 1, GridBagConstraints.CENTER, 0,10,0);
-         adaugaConstrangeri(l[3],2, 0, 1, 1, GridBagConstraints.WEST, GridBagConstraints.BOTH,10,0);
+        p=new JPanel(gbl);
+        adaugaConstrangeri(l0,0, 0, 1, 1, GridBagConstraints.WEST, 0, 10,0); 
+        adaugaConstrangeri(cb,0, 1, 2, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,10,0);
+        adaugaConstrangeri(l[0],1, 0, 1, 1, GridBagConstraints.WEST, 0, 10,0);
+        adaugaConstrangeri(t[0],1, 1, 1, 1, GridBagConstraints.CENTER, 0, 10, 0);
+        adaugaConstrangeri(l[1],1, 2, 1, 1, GridBagConstraints.WEST, GridBagConstraints.BOTH, 10,0);
+        adaugaConstrangeri(t[1],1, 3, 1, 1, GridBagConstraints.CENTER, 0, 10, 0);
+        adaugaConstrangeri(l[2],2, 2, 1, 1, GridBagConstraints.WEST, 0,10,0);
+        adaugaConstrangeri(t[2],2, 3, 1, 1, GridBagConstraints.CENTER, 0,10,0);
+        adaugaConstrangeri(l[3],2, 0, 1, 1, GridBagConstraints.WEST, GridBagConstraints.BOTH,10,0);
         adaugaConstrangeri(t[3],2, 1, 1, 1, GridBagConstraints.CENTER, 0,10,0);
-        adaugaConstrangeri(l[4],2, 2, 1, 1, GridBagConstraints.WEST, 0,10,0);
-        adaugaConstrangeri(t[4],2, 3, 1, 1, GridBagConstraints.CENTER, 0,10,0);
-        adaugaConstrangeri(l[5],3, 0, 1, 1, GridBagConstraints.WEST, 0,10,0);
-        adaugaConstrangeri(t[5],3, 1, 1, 1, GridBagConstraints.CENTER, 0,10,0);
-        adaugaConstrangeri(l[6],3, 2, 1, 1, GridBagConstraints.EAST, GridBagConstraints.BOTH,10,0);
-        adaugaConstrangeri(t[6],3, 3, 1, 1, GridBagConstraints.CENTER, 0,10,0);
-        b1=new JButton("Another product");
-        b2=new JButton("OK");
-        b3=new JButton("Payment");
+        adaugaConstrangeri(l[4],3, 0, 1, 1, GridBagConstraints.WEST, 0,10,0);
+        adaugaConstrangeri(t[4],3, 1, 1, 1, GridBagConstraints.CENTER, 0,10,0);
+        adaugaConstrangeri(l[5],3, 2, 1, 1, GridBagConstraints.WEST, 0,10,0);
+        adaugaConstrangeri(t[5],3, 3, 1, 1, GridBagConstraints.CENTER, 0,10,0);
+        adaugaConstrangeri(l[6],4, 2, 1, 1, GridBagConstraints.EAST, GridBagConstraints.BOTH,10,0);
+        adaugaConstrangeri(t[6],4, 3, 1, 1, GridBagConstraints.CENTER, 0,10,0);
+        b1=new JButton("Adaugati alt eveniment");
+        b2=new JButton("Iesire");
+        
         
         add(p);
         addWindowListener(new WindowAdapter() {
@@ -60,7 +63,6 @@ public class AdaugareEveniment extends JFrame{
         p=new JPanel(gbl);
         adaugaConstrangeri(b1, 0,0,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,20,0);
          adaugaConstrangeri(b2, 0,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,20,0);
-          adaugaConstrangeri(b3, 0,2,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,20,0);
           
           add(p, BorderLayout.SOUTH);
         
