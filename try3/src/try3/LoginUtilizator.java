@@ -94,6 +94,7 @@ public class LoginUtilizator extends JFrame {
                 JOptionPane.showMessageDialog(this, "Nume utilizator sau parola incorecta.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "A aparut o eroare la citirea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

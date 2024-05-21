@@ -66,37 +66,37 @@ public class AdaugareEveniment extends JFrame{
         
     }
     private void adaugaConstrangeri(JComponent c,int linie, int col, int latime, int inaltime, int anchor, int fill, int spatiuOX, int spatiuOY) {
-gbc.gridx = col;
-gbc.gridy = linie;
-gbc.gridwidth= latime;
-gbc.gridheight = inaltime;
-gbc.anchor = anchor;
-double weightx = 0.0;
-double weighty = 0.0;
-if(latime > 1)weightx = 1.0;
-if(inaltime > 1)weighty = 1.0;
-switch(fill){
-case GridBagConstraints.HORIZONTAL -> {
-    gbc.weightx = weightx;
-    gbc.weighty = 0.0;
-            }
-case GridBagConstraints.VERTICAL -> {
-    gbc.weighty = weighty;
-    gbc.weightx = 0.0;
-            }
-case GridBagConstraints.BOTH -> {
-    gbc.weightx = weightx;
-    gbc.weighty = weighty;
-            }
-case GridBagConstraints.NONE -> {
-    gbc.weightx = 0.0;
-    gbc.weighty = 0.0;
-            }
+        gbc.gridx = col;
+        gbc.gridy = linie;
+        gbc.gridwidth= latime;
+        gbc.gridheight = inaltime;
+        gbc.anchor = anchor;
+        double weightx = 0.0;
+        double weighty = 0.0;
+        if(latime > 1)weightx = 1.0;
+        if(inaltime > 1)weighty = 1.0;
+        switch(fill){
+        case GridBagConstraints.HORIZONTAL -> {
+            gbc.weightx = weightx;
+            gbc.weighty = 0.0;
+                    }
+        case GridBagConstraints.VERTICAL -> {
+            gbc.weighty = weighty;
+            gbc.weightx = 0.0;
+                    }
+        case GridBagConstraints.BOTH -> {
+            gbc.weightx = weightx;
+            gbc.weighty = weighty;
+                    }
+        case GridBagConstraints.NONE -> {
+            gbc.weightx = 0.0;
+            gbc.weighty = 0.0;
+                    }
 
 }
-gbc.fill = fill;
-gbc.insets=new Insets(0,2*spatiuOX,0,2*spatiuOY);
-p.add(c, gbc);
+        gbc.fill = fill;
+        gbc.insets=new Insets(0,2*spatiuOX,0,2*spatiuOY);
+        p.add(c, gbc);
 }
 
     
