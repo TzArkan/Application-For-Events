@@ -12,7 +12,7 @@ public class Login extends JFrame {
     private JButton b1, b2;
     private ControlButoane cb;
    
-
+//salut
     public class ControlButoane implements ActionListener {
         private JFrame f, g;
 
