@@ -1,0 +1,3 @@
+copil,copil,Utilizator
+copac,copac,Utilizator
+chestii,chestii,Utilizator
