@@ -43,7 +43,7 @@ public class AdaugareEveniment extends JFrame{
         t[2].addFocusListener(aco);
         l0=new JLabel("Tipul evenimentului");
         pr=new JLabel("Lei");        
-        cb=new JComboBox(new String[]{"Muzica","Inaugurari","Lansare de carte","Sport","Expozitii de arta","Teatru","Film","Festival"});
+        cb=new JComboBox(new String[]{"Alegeti categoria evenimentului","Muzica","Inaugurari","Lansare de carte","Sport","Expozitii de arta","Teatru","Film","Festival"});
         
         GridBagLayout gbl=new GridBagLayout();
         gbc=new GridBagConstraints();
@@ -166,13 +166,14 @@ public class AdaugareEveniment extends JFrame{
         String locatieEveniment = t[3].getText();
         String pretEveniment = t[4].getText();
         
-        if (numeEveniment.isEmpty() || dataEvenimentValida(dataEveniment)==false || oraEvenimentValida(oraEveniment)==false || locatieEveniment.isEmpty() || pretEvenimentValid(pretEveniment)==false) {
+        
+        if (cb.getSelectedIndex()==0 || numeEveniment.isEmpty() || dataEvenimentValida(dataEveniment)==false || oraEvenimentValida(oraEveniment)==false || locatieEveniment.isEmpty() || pretEvenimentValid(pretEveniment)==false) {
             JOptionPane.showMessageDialog(this, "Introduceti toate datele corespunzatoare evenimentului", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String fileName = "dateEvenimente.txt";
         try (FileWriter fw = new FileWriter(fileName, true)) {
-            fw.write(numeEveniment + "$" + dataEveniment + "$" + oraEveniment + "$" + locatieEveniment + "$" + pretEveniment + "\n");
+            fw.write( cb.getSelectedItem() + "$" + numeEveniment + "$" + dataEveniment + "$" + oraEveniment + "$" + locatieEveniment + "$" + pretEveniment + "\n");
             fw.flush(); // Ensure data is written immediately
             JOptionPane.showMessageDialog(this, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
             dispose();

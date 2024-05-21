@@ -28,9 +28,11 @@ public class AdminOptiuni extends JFrame {
             }*/
             if (e.getSource() == b2) {
                 if (g == null) g = new AdaugareEveniment(AdminOptiuni.this);
-                g.setLocationRelativeTo(null);
+                int oX=350;
+                int oY=350;
+                g.setSize(800,200);
+                g.setLocation(oX, oY);
                 g.setVisible(true);
-                g.setSize(700,200);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setVisible(false);
             }
