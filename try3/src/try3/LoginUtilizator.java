@@ -16,6 +16,21 @@ public class LoginUtilizator extends JFrame {
     private JPasswordField t2;
     private JButton b1, b2;
     private JFrame parentFrame;
+    private ControlButoane cb;  
+    public class ControlButoane implements ActionListener {
+        private JFrame f;
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == b1) {
+                if (f == null) f = new EvenimenteUtilizator(LoginUtilizator.this);
+                f.setLocationRelativeTo(null);
+                f.setSize(300, 150);
+                setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                f.setVisible(true);
+                setVisible(false);
+            }
+        }
+    }
 
     public LoginUtilizator(JFrame parentFrame) {
         super("Login Utilizator");
@@ -88,13 +103,16 @@ public class LoginUtilizator extends JFrame {
 
             if (found) {
                 JOptionPane.showMessageDialog(this, "Autentificare reusita.", "Succes", JOptionPane.INFORMATION_MESSAGE);
-                parentFrame.setVisible(true);
+                EvenimenteUtilizator utilzEv= new EvenimenteUtilizator(LoginUtilizator.this);
+                utilzEv.setLocationRelativeTo(null);
+                utilzEv.setVisible(true);
+                utilzEv.setSize(300,100);
+                setVisible(false);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Nume utilizator sau parola incorecta.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "A aparut o eroare la citirea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
