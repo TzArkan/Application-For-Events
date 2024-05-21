@@ -38,7 +38,7 @@ public class LoginAdmin extends JFrame {
         this.parentFrame = parentFrame;        
         JPanel p1 = new JPanel(new GridLayout(2, 2, 10, 10));
         
-        p1.add(new JLabel("Nume utilizator"));
+        p1.add(new JLabel("Nume administrator"));
         t1 = new JTextField(20);
         p1.add(t1);
         p1.add(new JLabel("Parola"));

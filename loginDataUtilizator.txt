@@ -1,2 +1,3 @@
 cuc,cuc,Utilizator
 carac,carac,Utilizator
+chestii,chestii,Utilizator
