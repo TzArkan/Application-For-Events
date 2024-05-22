@@ -15,6 +15,8 @@ public class GestiuneEvenimenteCurente extends JFrame{
     
     super("Gestionarea evenimentelor curente");
     model=new DefaultTableModel(10,6);
+    String[] NumeColoane = {"Categorie eveniment", "Nume eveniment", "Data eveniment", "Ora eveniment", "Locatie eveniment","Pret bilet eveniment"};
+    model.setColumnIdentifiers(NumeColoane);
     t=new JTable(model);
     String fisierEvenimente="dateEvenimente.txt";
     try (BufferedReader reader = new BufferedReader(new FileReader(fisierEvenimente))) {
