@@ -18,14 +18,14 @@ public class AdminOptiuni extends JFrame{
         private JFrame f,g,h;
 
         public void actionPerformed(ActionEvent e) {
-            /*if (e.getSource() == b1) {
-                if (f == null) f = new VizualizareEveniment(AdminOptiuni.this);
-                f.setLocationRelativeTo(null);
-                f.setSize(300, 150);
+            if (e.getSource() == b1) {
+                if (f == null) f = new GestiuneEvenimenteCurente(AdminOptiuni.this);
+                f.setLocation(0, 0);
+                f.setSize(800, 300);
                 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 f.setVisible(true);
                 setVisible(false);
-            }*/
+            }
             if (e.getSource() == b2) {
                 if (g == null) g = new AdaugareEveniment(AdminOptiuni.this);
                 int oX=350;
@@ -59,7 +59,7 @@ public class AdminOptiuni extends JFrame{
         JPanel p2 = new JPanel();
         
         cb = new ControlButoane();
-        b1 = new JButton("Vizualizare Evenimente");
+        b1 = new JButton("Gestionare Evenimente Curente");
         p1.add(b1);
         b1.addActionListener(cb);
 
