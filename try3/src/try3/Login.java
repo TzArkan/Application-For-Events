@@ -9,12 +9,14 @@ import javax.swing.*;
 
 public class Login extends JFrame {
     private JFrame fereastraVeche;
-    private JButton b1, b2;
+    private JButton b1, b2, b3;
     private ControlButoane cb;
    
 //salut
     public class ControlButoane implements ActionListener {
         private JFrame f, g;
+
+        
 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == b1) {
@@ -32,21 +34,18 @@ public class Login extends JFrame {
                 g.setSize(300, 150);
                 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 setVisible(false); 
+}   
+            
 }
-        }
     }
+        
 
     public Login(JFrame fereastraVeche) {
         super("Login");
         this.fereastraVeche = fereastraVeche;
         JPanel p1 = new JPanel(new GridLayout(1, 2));
-
-        addWindowListener(new WindowAdapter() {
-            
-            public void windowClosing(WindowEvent e) {
-                fereastraVeche.setVisible(true);
-            }
-        });
+        JPanel p2 = new JPanel();
+        
 
         b1 = new JButton("Utilizator");
         cb = new ControlButoane();
@@ -57,6 +56,19 @@ public class Login extends JFrame {
         b2.addActionListener(cb);
         p1.add(b2);
 
+        b3 = new JButton("Inapoi");
+        b3.addActionListener(cb);
+        
+        b3 = new JButton("Inapoi");
+        b3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                fereastraVeche.setVisible(true);
+                dispose();
+            }
+        });
+        p2.add(b3);
+        
+        this.add(p2, BorderLayout.SOUTH);
         this.add(p1);
     }
 }

@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.*;
 
-public class LoginUtilizator extends JFrame {
+public class LoginUtilizator extends JFrame implements ILogin {
     private JTextField t1;
     private JPasswordField t2;
     private JButton b1, b2;
@@ -54,7 +54,7 @@ public class LoginUtilizator extends JFrame {
         });
         p2.add(b1);
 
-        b2 = new JButton("Anulare");
+        b2 = new JButton("Inapoi");
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 parentFrame.setVisible(true);
@@ -64,12 +64,8 @@ public class LoginUtilizator extends JFrame {
         p2.add(b2);
         this.add(p2, BorderLayout.SOUTH);
 
-        // Add window listener to show the parent frame when this frame is closed
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                parentFrame.setVisible(true);
-            }
-        });
+        
+        
 
         this.setSize(300, 150);
         this.setLocationRelativeTo(null);

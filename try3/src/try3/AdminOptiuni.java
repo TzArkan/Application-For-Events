@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class AdminOptiuni extends JFrame {
+public class AdminOptiuni extends JFrame{
     private JFrame fereastraVeche;
     private JButton b1, b2, b3;
     private ControlButoane cb;
@@ -36,6 +36,9 @@ public class AdminOptiuni extends JFrame {
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setVisible(false);
             }
+            
+                
+            
             /*if (e.getSource() == b3) {
                 if (h == null) h = new StergereEveniment(AdminOptiuni.this);
                 h.setLocationRelativeTo(null);
@@ -52,13 +55,9 @@ public class AdminOptiuni extends JFrame {
         super("Optiuni administrator");
         this.fereastraVeche = fereastraVeche;
         JPanel p1 = new JPanel(new GridLayout(3, 1));
-
-        addWindowListener(new WindowAdapter() {
-            
-            public void windowClosing(WindowEvent e) {
-                fereastraVeche.setVisible(true);
-            }
-        });
+        
+        JPanel p2 = new JPanel();
+        
         cb = new ControlButoane();
         b1 = new JButton("Vizualizare Evenimente");
         p1.add(b1);
@@ -68,11 +67,16 @@ public class AdminOptiuni extends JFrame {
         b2.addActionListener(cb);
         p1.add(b2);
         
-        b3 = new JButton("Stergere Evenimente");
-        b3.addActionListener(cb);
-        p1.add(b3);
-
+        b3 = new JButton("Inapoi");
+        b3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                fereastraVeche.setVisible(true);
+                dispose();
+            }
+        });
+        p2.add(b3);
 
         this.add(p1);
+        this.add(p2, BorderLayout.SOUTH);
     }
 }

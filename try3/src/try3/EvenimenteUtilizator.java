@@ -23,12 +23,7 @@ public EvenimenteUtilizator(JFrame fereastraVeche) {
     this.fereastraVeche = fereastraVeche;
     JPanel p1 = new JPanel(new GridLayout(9, 1));
 
-    addWindowListener(new WindowAdapter() {
-        
-        public void windowClosing(WindowEvent e) {
-            fereastraVeche.setVisible(true);
-        }
-    });
+    
     cb = new ControlButoane();
     b1 = new JButton("Muzica");
     p1.add(b1);

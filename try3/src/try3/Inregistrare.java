@@ -39,7 +39,7 @@ public class Inregistrare extends JFrame {
         });
         p2.add(b1);
 
-        b2 = new JButton("Anulare");
+        b2 = new JButton("Inapoi");
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,12 +51,7 @@ public class Inregistrare extends JFrame {
 
         this.add(p2, BorderLayout.SOUTH);
 
-        // Add window listener to show the parent frame when this frame is closed
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                parentFrame.setVisible(true);
-            }
-        });
+        
 
         this.setSize(300, 150);
         this.setLocationRelativeTo(null);

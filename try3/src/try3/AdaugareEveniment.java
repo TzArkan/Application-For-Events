@@ -11,7 +11,6 @@ import java.text.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.event.*;
-import java.util.Date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,7 +19,7 @@ public class AdaugareEveniment extends JFrame{
     private JLabel[] l;
     private JLabel l0,pr;
     private JTextField[] t;
-    private JButton b1;
+    private JButton b1,b2;
     private GridBagConstraints gbc;
     private JPanel p;
     private JComboBox cb;
@@ -73,17 +72,19 @@ public class AdaugareEveniment extends JFrame{
             }
         });
         
-        
-        
-        add(p);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
+        b2 = new JButton("Inapoi");
+        b2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 parentFrame.setVisible(true);
+                dispose();
             }
         });
+        
+        add(p);
+        
         p=new JPanel(gbl);
         adaugaConstrangeri(b1, 0,0,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,20,0);
-        
+        adaugaConstrangeri(b2, 0,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,20,0);
           
         add(p, BorderLayout.SOUTH);
         

@@ -65,7 +65,7 @@ public class Try3 extends JFrame {
                 Login fereastraLogin = new Login(Try3.this);
                 fereastraLogin.setLocationRelativeTo(null);
                 fereastraLogin.setVisible(true);
-                fereastraLogin.setSize(300, 100);
+                fereastraLogin.setSize(250, 125);
                 setVisible(false); 
 }
             if (e.getSource() == b2) {
@@ -75,6 +75,7 @@ public class Try3 extends JFrame {
                 g.setSize(300, 150);
                 setVisible(false); 
 }
+            
         }
     }
 
@@ -97,7 +98,8 @@ public class Try3 extends JFrame {
     public static void main(String[] args) {
         var f = new Try3();
         f.pack(); 
-        f.setLocationRelativeTo(null); 
+        f.setLocationRelativeTo(null);
+        f.setSize(250,75);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.*;
 
-public class LoginAdmin extends JFrame {
+public class LoginAdmin extends JFrame implements ILogin {
     private JTextField t1;
     private JPasswordField t2;
     private JButton b1, b2;
@@ -25,7 +25,7 @@ public class LoginAdmin extends JFrame {
             if (e.getSource() == b1) {
                 if (f == null) f = new AdminOptiuni(LoginAdmin.this);
                 f.setLocationRelativeTo(null);
-                f.setSize(300, 150);
+                f.setSize(350, 400);
                 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 f.setVisible(true);
                 setVisible(false);
@@ -55,7 +55,7 @@ public class LoginAdmin extends JFrame {
         });
         p2.add(b1);
 
-        b2 = new JButton("Anulare");
+        b2 = new JButton("Inapoi");
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 parentFrame.setVisible(true);
@@ -65,11 +65,7 @@ public class LoginAdmin extends JFrame {
         p2.add(b2);
         this.add(p2, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                parentFrame.setVisible(true);
-            }
-        });
+        
 
         this.setSize(300, 150);
         this.setLocationRelativeTo(null);
@@ -106,7 +102,7 @@ public class LoginAdmin extends JFrame {
                 AdminOptiuni adOpt= new AdminOptiuni(LoginAdmin.this);
                 adOpt.setLocationRelativeTo(null);
                 adOpt.setVisible(true);
-                adOpt.setSize(300,100);
+                adOpt.setSize(300,150);
                 setVisible(false);
                 dispose();
             } else {
