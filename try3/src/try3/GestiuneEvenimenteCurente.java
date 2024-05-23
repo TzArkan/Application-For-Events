@@ -66,14 +66,14 @@ public void stergereEveniment(){
 }
 
  public void loadDataFromFile() {
-    tabel.setRowCount(0); // Clear existing data
+    tabel.setRowCount(0); 
     try (BufferedReader reader = new BufferedReader(new FileReader("dateEvenimente.txt"))) {
         String line;
         while ((line = reader.readLine()) != null) {
-            String[] parts = line.split("\\$");
-            if (parts.length == 6) {
-                tabel.addRow(parts); // Add data to the table model
-            }
+            String[] parts = line.split("\\$");     // \\$ ca sa ia caracterul $
+            
+                tabel.addRow(parts); // adauga date in tabel
+            
         }
     } catch (IOException e) {
         e.printStackTrace();
@@ -84,16 +84,17 @@ public void stergereEveniment(){
     
     super("Gestionarea evenimentelor curente");
     setLayout(new BorderLayout());
-    tabel=new DefaultTableModel(50,6);
+    tabel=new DefaultTableModel(50,8);
     loadDataFromFile();
 
-    String[] NumeColoane = {"Categorie eveniment", "Nume eveniment", "Data eveniment", "Ora eveniment", "Locatie eveniment","Pret bilet eveniment"};
+    String[] NumeColoane = {"Categorie eveniment", "Nume eveniment", "Data eveniment", "Ora eveniment", "Locatie eveniment","Pret bilet eveniment","Numar bilete disponibile","Numar bilete vandute"};
     tabel.setColumnIdentifiers(NumeColoane);
 
     t=new JTable(tabel);
+    t.setRowHeight(20);
     int inaltimeLinie = t.getRowHeight();
     checkboxPanel = new JPanel();
-    checkboxPanel.setLayout(new GridBagLayout()); // GridLayout with one column
+    checkboxPanel.setLayout(new GridBagLayout()); 
     
     GridBagConstraints gbc=new GridBagConstraints();
     gbc.anchor=GridBagConstraints.WEST;

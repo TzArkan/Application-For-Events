@@ -21,7 +21,7 @@ public class AdminOptiuni extends JFrame{
             if (e.getSource() == b1) {
                 if (f == null) f = new GestiuneEvenimenteCurente(AdminOptiuni.this);
                 f.setLocation(0, 0);
-                f.setSize(800, 300);
+                f.setSize(1300, 300);
                 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 f.setVisible(true);
                 f=null;         // ca sa stearga instanta actuala a gestiunii tabelare

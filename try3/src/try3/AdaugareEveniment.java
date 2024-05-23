@@ -29,10 +29,10 @@ public class AdaugareEveniment extends JFrame{
 
     public AdaugareEveniment(JFrame parentFrame){
         super("Adaugare de Evenimente");
-        String[] etichete={"Numele evenimentului","Data evenimentului: zz/ll/yyyy", "Ora de incepere a evenimentului: xx:xx","Locatia evenimentului", "Pretul unui bilet"};
-        l=new JLabel[5];
-        t=new JTextField[5];
-              for(int i=0; i<5; i++) {
+        String[] etichete={"Numele evenimentului","Data evenimentului: zz/ll/yyyy", "Ora de incepere a evenimentului: xx:xx","Locatia evenimentului", "Pretul unui bilet","Numar de bilete disponibile"};
+        l=new JLabel[6];
+        t=new JTextField[6];
+              for(int i=0; i<6; i++) {
             l[i]=new JLabel(etichete[i]);
             t[i]=new JTextField(10);
         }
@@ -59,6 +59,8 @@ public class AdaugareEveniment extends JFrame{
         adaugaConstrangeri(t[3],2, 1, 1, 1, GridBagConstraints.CENTER, 0,10,0);
         adaugaConstrangeri(l[4],3, 0, 1, 1, GridBagConstraints.WEST, 0,10,0);
         adaugaConstrangeri(t[4],3, 1, 1, 1, GridBagConstraints.CENTER, 0,10,0);
+        adaugaConstrangeri(l[5],4, 0, 1, 1, GridBagConstraints.WEST, 0,10,0);
+        adaugaConstrangeri(t[5],4, 1, 1, 1, GridBagConstraints.CENTER, 0,10,0);
         adaugaConstrangeri(pr,3, 2, 1, 1, GridBagConstraints.WEST, 0,10,0);
         //adaugaConstrangeri(l[5],3, 2, 1, 1, GridBagConstraints.WEST, 0,10,0);
         //adaugaConstrangeri(t[5],3, 3, 1, 1, GridBagConstraints.CENTER, 0,10,0);
@@ -160,21 +162,30 @@ public class AdaugareEveniment extends JFrame{
         }
     }
 
+    public boolean numarBilete(String s) {
+        try {
+            Integer.parseInt(s);
+            return true; 
+        } catch (NumberFormatException e) {
+            return false; 
+        }
+    }
+
     private void storeUserData() {
         String numeEveniment = t[0].getText();
         String dataEveniment = t[1].getText();
         String oraEveniment = t[2].getText();
         String locatieEveniment = t[3].getText();
         String pretEveniment = t[4].getText();
+        String numarBileteEveniment = t[5].getText();
         
-        
-        if (cb.getSelectedIndex()==0 || numeEveniment.isEmpty() || dataEvenimentValida(dataEveniment)==false || oraEvenimentValida(oraEveniment)==false || locatieEveniment.isEmpty() || pretEvenimentValid(pretEveniment)==false) {
+        if (numarBilete(numarBileteEveniment)==false || cb.getSelectedIndex()==0 || numeEveniment.isEmpty() || dataEvenimentValida(dataEveniment)==false || oraEvenimentValida(oraEveniment)==false || locatieEveniment.isEmpty() || pretEvenimentValid(pretEveniment)==false) {
             JOptionPane.showMessageDialog(this, "Introduceti toate datele corespunzatoare evenimentului", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String fileName = "dateEvenimente.txt";
         try (FileWriter fw = new FileWriter(fileName, true)) {
-            fw.write( cb.getSelectedItem() + "$" + numeEveniment + "$" + dataEveniment + "$" + oraEveniment + "$" + locatieEveniment + "$" + pretEveniment + "\n");
+            fw.write( cb.getSelectedItem() + "$" + numeEveniment + "$" + dataEveniment + "$" + oraEveniment + "$" + locatieEveniment + "$" + pretEveniment + "$" + numarBileteEveniment + "$" +"0" + "\n");
             fw.flush(); // Ensure data is written immediately
             JOptionPane.showMessageDialog(this, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
             
