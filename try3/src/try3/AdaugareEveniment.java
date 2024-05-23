@@ -177,7 +177,7 @@ public class AdaugareEveniment extends JFrame{
             fw.write( cb.getSelectedItem() + "$" + numeEveniment + "$" + dataEveniment + "$" + oraEveniment + "$" + locatieEveniment + "$" + pretEveniment + "\n");
             fw.flush(); // Ensure data is written immediately
             JOptionPane.showMessageDialog(this, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
+            
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "A aparut o eroare la inregistrarea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
         }

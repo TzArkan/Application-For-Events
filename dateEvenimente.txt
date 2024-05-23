@@ -1,1 +1,13 @@
-Muzica$Muzica de suflet si jale$15/05/2024$22:22$La mine acasa$150
+Muzica$m$11/11/2011$22:22$m$1
+Lansare de carte$asd$22/01/2022$22:22$asd$2
+Lansare de carte$bsd$22/22/2022$22:22$asd$2
+Muzica$asd$22/22/2022$22:22$asd$2
+Inaugurari$a1$22/22/2022$22:22$a1$2
+Lansare de carte$a2$22/22/2022$22:22$a2$2
+Teatru$a3$22/22/2022$22:22$a3$2
+Sport$a4$22/22/2022$22:22$a4$2
+Film$a5$22/22/2022$22:22$a5$2
+Festival$a6$22/22/2022$22:22$a6$2
+Festival$a7$22/22/2022$22:22$a7$2
+Festival$a8$22/22/2022$22:22$a8$2
+Sport$a9$22/22/2022$22:22$a9$2
