@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,7 +17,7 @@ import java.awt.event.*;
 public class GestiuneEvenimenteCurente extends JFrame {
  private JTable t;
  private DefaultTableModel tabel;
- private JButton b1,b2,b3;
+ private JButton b1,b2,b3,b4;
  private JFrame parentFrame;
  private JPanel dedicatButoane,capeteTabelPanel,checkboxPanel,checkboxPanel0,PanouTabelCheckboxCombinat;
  private JCheckBox selectAllCheckbox;
@@ -48,6 +50,46 @@ public class GestiuneEvenimenteCurente extends JFrame {
 }
 
 
+public void copiazaLinie(int linie) {
+    String numeFisier = "dateEvenimente.txt";    
+    List<String> lines = new ArrayList<>();
+    
+    try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
+        String line;
+        int numarLinieCurent = 0;
+        
+        // Citeste toate liniile si le stocheaza
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
+            numarLinieCurent++;
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+        return;
+    }
+    
+    // Verifica daca linia exista
+    if (linie >= lines.size()) {
+        JOptionPane.showMessageDialog(null, "Linia specificată nu există.", "Eroare", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    // Ia linia de copiat din fisierul text
+    String linieDeCopiat = lines.get(linie);
+    
+    // Append the line to the file
+    try (FileWriter fw = new FileWriter(numeFisier, true)) {
+        fw.write(linieDeCopiat + "\n");
+        fw.flush(); // asigura scrierea imediata a liniei
+        JOptionPane.showMessageDialog(null, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "A apărut o eroare la înregistrarea datelor.", "Eroare", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+        
+
+
 public void selectieEveniment(int alegere){
     int rowCount = tabel.getRowCount();
     if (alegere==1){
@@ -60,13 +102,22 @@ public void selectieEveniment(int alegere){
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 f.setVisible(true);
                 f=null;
-                PanouTabelCheckboxCombinat.revalidate();
-                PanouTabelCheckboxCombinat.repaint();
             }
         }
     }
+    
+    else if (alegere==2)
+    for(int linie = rowCount - 1; linie >= 0; linie--) {
+        JCheckBox checkBox = (JCheckBox)checkboxPanel.getComponent(linie);
+        if(checkBox.isSelected()) { //verifica daca checkboxu de pe linie e selectat
 
-    else if (alegere==2){
+            
+            copiazaLinie(linie);
+            
+        }
+    }
+
+    else if (alegere==3){
     for(int linie = rowCount - 1; linie >= 0; linie--) {
         JCheckBox checkBox = (JCheckBox)checkboxPanel.getComponent(linie);
         if(checkBox.isSelected()) { //verifica daca checkboxu de pe linie e selectat
@@ -84,7 +135,7 @@ public void selectieEveniment(int alegere){
     //checkboxPanel.repaint();
 }
 
- public void loadDataFromFile() {
+ public void incarcaDinFisier() {
     tabel.setRowCount(0); 
     try (BufferedReader reader = new BufferedReader(new FileReader("dateEvenimente.txt"))) {
         String line;
@@ -98,13 +149,13 @@ public void selectieEveniment(int alegere){
         e.printStackTrace();
     }
 }
- 
+
  public GestiuneEvenimenteCurente(JFrame parentFrame){
     
     super("Gestionarea evenimentelor curente");
     setLayout(new BorderLayout());
     tabel=new DefaultTableModel(50,8);
-    loadDataFromFile();
+    incarcaDinFisier();
 
     String[] NumeColoane = {"Categorie eveniment", "Nume eveniment", "Data eveniment", "Ora eveniment", "Locatie eveniment","Pret bilet eveniment","Numar bilete disponibile","Numar bilete vandute"};
     tabel.setColumnIdentifiers(NumeColoane);
@@ -178,25 +229,33 @@ public void selectieEveniment(int alegere){
     });
     dedicatButoane.add(b1);
 
-    b2=new JButton("Sterge eveniment");
+
+    b2=new JButton("Copiaza eveniment");
     b2.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             selectieEveniment(2);
         }
     });
     dedicatButoane.add(b2);
-    
-    b3=new JButton("Inapoi");
+
+    b3=new JButton("Sterge eveniment");
     b3.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            selectieEveniment(3);
+        }
+    });
+    dedicatButoane.add(b3);
+
+    b4=new JButton("Inapoi");
+    b4.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             parentFrame.setVisible(true);
             dispose();
         }
     });
-    dedicatButoane.add(b3);
+    dedicatButoane.add(b4);
     this.add(dedicatButoane, BorderLayout.SOUTH);
 
-}
 
 }
-    
+}

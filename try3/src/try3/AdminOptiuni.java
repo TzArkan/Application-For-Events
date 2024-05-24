@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class AdminOptiuni extends JFrame{
     private JFrame fereastraVeche;
-    private JButton b1, b2, b3;
+    private JButton b1, b2, b3, b4;
     private ControlButoane cb;
    
 
@@ -26,15 +26,27 @@ public class AdminOptiuni extends JFrame{
                 f.setVisible(true);
                 f=null;         // ca sa stearga instanta actuala a gestiunii tabelare
             }
+
             if (e.getSource() == b2) {
-                if (g == null) g = new AdaugareEveniment(AdminOptiuni.this);
+                if (g == null) g = new GestionareCategoriiEvenimente (AdminOptiuni.this);
                 int oX=350;
                 int oY=350;
-                g.setSize(800,200);
+                g.setSize(600,150);
                 g.setLocation(oX, oY);
                 g.setVisible(true);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
+
+            if (e.getSource() == b3) {
+                if (h == null) h = new AdaugareEveniment(AdminOptiuni.this);
+                int oX=350;
+                int oY=350;
+                h.setSize(800,200);
+                h.setLocation(oX, oY);
+                h.setVisible(true);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            }
+            
             
                 
             
@@ -63,18 +75,23 @@ public class AdminOptiuni extends JFrame{
         p1.add(b1);
         
 
-        b2 = new JButton("Adaugare Evenimente");
+        
+        b2 = new JButton("Adauga sau sterge categorii de evenimente");
         b2.addActionListener(cb);
         p1.add(b2);
+
+        b3 = new JButton("Adaugare Evenimente");
+        b3.addActionListener(cb);
+        p1.add(b3);
         
-        b3 = new JButton("Inapoi");
-        b3.addActionListener(new ActionListener() {
+        b4 = new JButton("Inapoi");
+        b4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 fereastraVeche.setVisible(true);
                 dispose();
             }
         });
-        p2.add(b3);
+        p2.add(b4);
 
         this.add(p1);
         this.add(p2, BorderLayout.SOUTH);

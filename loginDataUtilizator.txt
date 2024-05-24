@@ -1,3 +1,4 @@
 cuc,cuc,Utilizator
 chestii,chestii,Utilizator
 stefan,cuc,Utilizator
+lala,lala,Utilizator

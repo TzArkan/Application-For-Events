@@ -32,8 +32,12 @@ public class ModificareEveniment extends JFrame implements IGesEveniment {
         String[] etichete={"Numele evenimentului","Data evenimentului: zz/ll/yyyy", "Ora de incepere a evenimentului: xx:xx","Locatia evenimentului", "Pretul unui bilet","Numar de bilete disponibile"};
         l=new JLabel[6];
         t=new JTextField[6];
+        Dimension textFieldDimension = new Dimension(200, 25);
               for(int i=0; i<6; i++) {
             l[i]=new JLabel(etichete[i]);
+            t[i]=new JTextField();
+            t[i].setPreferredSize(textFieldDimension); // Set the preferred size
+            t[i].setMinimumSize(textFieldDimension);
                
         }
         incarcaDateDinFisier(linie);
@@ -45,8 +49,9 @@ public class ModificareEveniment extends JFrame implements IGesEveniment {
         t[2].addFocusListener(aco);
         l0=new JLabel("Tipul evenimentului");
         pr=new JLabel("Lei");        
-        cb=new JComboBox(new String[]{"Alegeti categoria evenimentului","Muzica","Inaugurari","Lansare de carte","Sport","Expozitii de arta","Teatru","Film","Festival"});
-        
+        cb=new JComboBox();
+
+        incarcaComboBox();
         
         GridBagLayout gbl=new GridBagLayout();
         gbc=new GridBagConstraints();
@@ -75,7 +80,7 @@ public class ModificareEveniment extends JFrame implements IGesEveniment {
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                storeUserData(linie);
+                stocareDate(linie);
             }
         });
         
@@ -164,6 +169,18 @@ public class ModificareEveniment extends JFrame implements IGesEveniment {
                 return false; 
         }
     }
+    public void incarcaComboBox() {
+        String numeFisier = "categoriiEvenimente.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                cb.addItem(line);
+                
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
 
        public boolean dataEvenimentValida(String dataEveniment) {
@@ -195,7 +212,7 @@ public class ModificareEveniment extends JFrame implements IGesEveniment {
         }
     }
 
-    public void storeUserData(int linie) {
+    public void stocareDate(int linie) {
         String numeEveniment = t[0].getText();
         String dataEveniment = t[1].getText();
         String oraEveniment = t[2].getText();
