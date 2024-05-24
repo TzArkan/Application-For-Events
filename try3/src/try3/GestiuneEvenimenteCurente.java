@@ -12,13 +12,14 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GestiuneEvenimenteCurente extends JFrame{
+public class GestiuneEvenimenteCurente extends JFrame {
  private JTable t;
  private DefaultTableModel tabel;
  private JButton b1,b2,b3;
  private JFrame parentFrame;
  private JPanel dedicatButoane,capeteTabelPanel,checkboxPanel,checkboxPanel0,PanouTabelCheckboxCombinat;
  private JCheckBox selectAllCheckbox;
+ private JFrame f;
  
  private void stergeLinie(int numarLinie) {
     String numeFisier = "dateEvenimente.txt";
@@ -47,8 +48,25 @@ public class GestiuneEvenimenteCurente extends JFrame{
 }
 
 
-public void stergereEveniment(){
+public void selectieEveniment(int alegere){
     int rowCount = tabel.getRowCount();
+    if (alegere==1){
+        for(int linie = rowCount - 1; linie >= 0; linie--) {
+            JCheckBox checkBox = (JCheckBox)checkboxPanel.getComponent(linie);
+            if(checkBox.isSelected()) { //verifica daca checkboxu de pe linie e selectat
+                f = new ModificareEveniment(GestiuneEvenimenteCurente.this,linie);
+                f.setLocation(0, 0);
+                f.setSize(1300, 300);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                f.setVisible(true);
+                f=null;
+                PanouTabelCheckboxCombinat.revalidate();
+                PanouTabelCheckboxCombinat.repaint();
+            }
+        }
+    }
+
+    else if (alegere==2){
     for(int linie = rowCount - 1; linie >= 0; linie--) {
         JCheckBox checkBox = (JCheckBox)checkboxPanel.getComponent(linie);
         if(checkBox.isSelected()) { //verifica daca checkboxu de pe linie e selectat
@@ -60,9 +78,10 @@ public void stergereEveniment(){
             checkboxPanel.remove(linie);
         }
     }
+}
     // reface partea de checkbox din tabel
-    checkboxPanel.revalidate();
-    checkboxPanel.repaint();
+    //checkboxPanel.revalidate();
+    //checkboxPanel.repaint();
 }
 
  public void loadDataFromFile() {
@@ -154,7 +173,7 @@ public void stergereEveniment(){
     b1=new JButton("Modifica eveniment");
     b1.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            modificareEveniment();
+            selectieEveniment(1);
         }
     });
     dedicatButoane.add(b1);
@@ -162,7 +181,7 @@ public void stergereEveniment(){
     b2=new JButton("Sterge eveniment");
     b2.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            stergereEveniment();
+            selectieEveniment(2);
         }
     });
     dedicatButoane.add(b2);
@@ -179,8 +198,5 @@ public void stergereEveniment(){
 
 }
 
- 
 }
-
-
     

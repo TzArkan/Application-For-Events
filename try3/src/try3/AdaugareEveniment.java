@@ -15,7 +15,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class AdaugareEveniment extends JFrame{
+public class AdaugareEveniment extends JFrame implements IGesEveniment {
     private JLabel[] l;
     private JLabel l0,pr;
     private JTextField[] t;
@@ -36,6 +36,7 @@ public class AdaugareEveniment extends JFrame{
             l[i]=new JLabel(etichete[i]);
             t[i]=new JTextField(10);
         }
+        
         acd=new AscultatorCampData();
         t[1].addFocusListener(acd);
         aco=new AscultatorCampOra();
@@ -130,7 +131,7 @@ public class AdaugareEveniment extends JFrame{
         
        }
 
-        public static boolean oraEvenimentValida(String ora) {
+        public boolean oraEvenimentValida(String ora) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
                 try {
 
@@ -142,7 +143,7 @@ public class AdaugareEveniment extends JFrame{
     }
     
 
-       public static boolean dataEvenimentValida(String dataEveniment) {
+       public boolean dataEvenimentValida(String dataEveniment) {
         DateFormat df=DateFormat.getDateInstance(DateFormat.SHORT);
         try {
             
@@ -171,7 +172,7 @@ public class AdaugareEveniment extends JFrame{
         }
     }
 
-    private void storeUserData() {
+    public void storeUserData() {
         String numeEveniment = t[0].getText();
         String dataEveniment = t[1].getText();
         String oraEveniment = t[2].getText();
@@ -193,7 +194,7 @@ public class AdaugareEveniment extends JFrame{
             JOptionPane.showMessageDialog(this, "A aparut o eroare la inregistrarea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    private void adaugaConstrangeri(JComponent c,int linie, int col, int latime, int inaltime, int anchor, int fill, int spatiuOX, int spatiuOY) {
+    public void adaugaConstrangeri(JComponent c,int linie, int col, int latime, int inaltime, int anchor, int fill, int spatiuOX, int spatiuOY) {
         gbc.gridx = col;
         gbc.gridy = linie;
         gbc.gridwidth= latime;

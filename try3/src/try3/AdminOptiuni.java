@@ -22,7 +22,7 @@ public class AdminOptiuni extends JFrame{
                 if (f == null) f = new GestiuneEvenimenteCurente(AdminOptiuni.this);
                 f.setLocation(0, 0);
                 f.setSize(1300, 300);
-                setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 f.setVisible(true);
                 f=null;         // ca sa stearga instanta actuala a gestiunii tabelare
             }
@@ -59,8 +59,9 @@ public class AdminOptiuni extends JFrame{
         
         cb = new ControlButoane();
         b1 = new JButton("Gestionare Evenimente Curente");
-        p1.add(b1);
         b1.addActionListener(cb);
+        p1.add(b1);
+        
 
         b2 = new JButton("Adaugare Evenimente");
         b2.addActionListener(cb);
