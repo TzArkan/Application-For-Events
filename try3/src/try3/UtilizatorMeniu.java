@@ -39,7 +39,7 @@ public class UtilizatorMeniu extends JFrame{
     }
 
     public UtilizatorMeniu(JFrame fereastraVeche,String username) {
-        super("Optiuni utilizator");
+        super("Utilizator: "+username);
         this.fereastraVeche = fereastraVeche;
         l1=new JLabel("Categorii de evenimente la care esti abonat");
         l2=new JLabel("Aboneaza-te la urmatoarele categorii de evenimente");

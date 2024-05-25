@@ -72,7 +72,7 @@ public class Try3 extends JFrame {
                 if (g == null) g = new Inregistrare(Try3.this);
                 g.setLocationRelativeTo(null);
                 g.setVisible(true);
-                g.setSize(300, 150);
+                g.setSize(300, 175);
                 setVisible(false); 
 }
             
