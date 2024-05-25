@@ -35,12 +35,13 @@ public class ModificareEveniment extends JFrame implements IGesEveniment {
         Dimension textFieldDimension = new Dimension(200, 25);
               for(int i=0; i<6; i++) {
             l[i]=new JLabel(etichete[i]);
-            t[i]=new JTextField();
-            t[i].setPreferredSize(textFieldDimension); // Set the preferred size
-            t[i].setMinimumSize(textFieldDimension);
-               
+            t[i]=new JTextField();               
         }
         incarcaDateDinFisier(linie);
+        for(int i=0; i<6; i++) {
+            t[i].setPreferredSize(new Dimension(100,100)); // Set the preferred size
+            t[i].setMinimumSize(new Dimension(100,25));
+        }            
         
         
         acd=new AscultatorCampData();

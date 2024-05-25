@@ -15,22 +15,8 @@ public class LoginUtilizator extends JFrame implements ILogin {
     private JTextField t1;
     private JPasswordField t2;
     private JButton b1, b2;
-    private JFrame parentFrame;
-    private ControlButoane cb;  
-    public class ControlButoane implements ActionListener {
-        private JFrame f;
-
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == b1) {
-                if (f == null) f = new EvenimenteUtilizator(LoginUtilizator.this);
-                f.setLocationRelativeTo(null);
-                f.setSize(300, 150);
-                setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                f.setVisible(true);
-                setVisible(false);
-            }
-        }
-    }
+    private JFrame parentFrame; 
+    
 
     public LoginUtilizator(JFrame parentFrame) {
         super("Login Utilizator");
@@ -99,10 +85,10 @@ public class LoginUtilizator extends JFrame implements ILogin {
 
             if (found) {
                 JOptionPane.showMessageDialog(this, "Autentificare reusita.", "Succes", JOptionPane.INFORMATION_MESSAGE);
-                EvenimenteUtilizator utilzEv= new EvenimenteUtilizator(LoginUtilizator.this);
+                UtilizatorMeniu utilzEv= new UtilizatorMeniu(LoginUtilizator.this,enteredUsername);
+                utilzEv.setSize(800,350);
                 utilzEv.setLocationRelativeTo(null);
                 utilzEv.setVisible(true);
-                utilzEv.setSize(300,100);
                 setVisible(false);
                 dispose();
             } else {
