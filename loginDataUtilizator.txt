@@ -9,3 +9,5 @@ baras,baras,baras@yahoo.com,Utilizator
 bacale,bacale,bacale@yahoo.com,Utilizator
 microunde,microunde,bacale@yahoo.com,Utilizator
 bucifal,bucifal,bucifal@yahoo.com,Utilizator
+corpo,car,corpo@yahoo.com,Utilizator
+carta,bos,carta@yahoo.com,Utilizator

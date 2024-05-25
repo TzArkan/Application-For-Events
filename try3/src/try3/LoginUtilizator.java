@@ -86,6 +86,7 @@ public class LoginUtilizator extends JFrame implements ILogin {
             if (found) {
                 JOptionPane.showMessageDialog(this, "Autentificare reusita.", "Succes", JOptionPane.INFORMATION_MESSAGE);
                 UtilizatorMeniu utilzEv= new UtilizatorMeniu(LoginUtilizator.this,enteredUsername);
+                t1.setText("");
                 utilzEv.setSize(800,350);
                 utilzEv.setLocationRelativeTo(null);
                 utilzEv.setVisible(true);

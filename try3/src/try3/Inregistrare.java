@@ -71,7 +71,7 @@ public class Inregistrare extends JFrame {
 
         String conturiUtilizatoriDetalii = "loginDataUtilizator.txt";
         
-        if (verificareUtilizatorUnic(username, password, conturiUtilizatoriDetalii)==false) {
+        if (verificareUtilizatorUnic(username,conturiUtilizatoriDetalii)==false) {
             return;
         }
 
@@ -89,12 +89,12 @@ public class Inregistrare extends JFrame {
         }
     }
 
-    public boolean verificareUtilizatorUnic(String username, String password, String numeFisier) {
+    public boolean verificareUtilizatorUnic(String username, String numeFisier) {
         try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(","); // \\$ ca sa ia caracterul $
-                if (parts.length >= 2 && (parts[0].equals(username) || parts[1].equals(password))) {
+                if (parts[0].equals(username)) {
                     JOptionPane.showMessageDialog(this, "Acest nume a fost deja ales de catre altcineva. Alegeti alt nume", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }

@@ -24,6 +24,7 @@ public class LoginAdmin extends JFrame implements ILogin {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == b1) {
                 if (f == null) f = new AdminOptiuni(LoginAdmin.this);
+                t1.setText("");
                 f.setLocationRelativeTo(null);
                 f.setSize(350, 400);
                 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
