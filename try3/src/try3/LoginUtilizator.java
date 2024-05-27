@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.*;
 
-public class LoginUtilizator extends JFrame implements ILogin {
+public class LoginUtilizator extends JFrame implements ILogin{
     private JTextField t1;
     private JPasswordField t2;
     private JButton b1, b2;
@@ -87,6 +87,7 @@ public class LoginUtilizator extends JFrame implements ILogin {
                 JOptionPane.showMessageDialog(this, "Autentificare reusita.", "Succes", JOptionPane.INFORMATION_MESSAGE);
                 UtilizatorMeniu utilzEv= new UtilizatorMeniu(LoginUtilizator.this,enteredUsername);
                 t1.setText("");
+                t2.setText("");
                 utilzEv.setSize(800,350);
                 utilzEv.setLocationRelativeTo(null);
                 utilzEv.setVisible(true);
