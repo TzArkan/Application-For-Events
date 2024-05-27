@@ -60,23 +60,21 @@ public class Inregistrare extends JFrame {
     }
 
     private void storeUserData() {
-        String username = t1.getText();
-        String adresaEmail = t3.getText();
-        String password = new String(t2.getPassword());
-
-        if (username.isEmpty() || password.isEmpty() || adresaEmail.isEmpty()) {
+        DateUtilizator du=new DateUtilizator(t1.getText(),t3.getText(),new String(t2.getPassword()));
+        
+        if (du.getNume().isEmpty() || du.getParola().isEmpty() || du.getEmail().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Introduceti numele contului, adresa de email si parola.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         String conturiUtilizatoriDetalii = "loginDataUtilizator.txt";
         
-        if (verificareUtilizatorUnic(username,conturiUtilizatoriDetalii)==false) {
+        if (verificareUtilizatorUnic(du.getNume(),conturiUtilizatoriDetalii)==false) {
             return;
         }
 
         try (FileWriter fw = new FileWriter(conturiUtilizatoriDetalii, true)) {
-            fw.write(username + "," + password + "," + adresaEmail + ",Utilizator\n");
+            fw.write(du.getNume() + "," + du.getParola() + "," + du.getEmail() + ",Utilizator\n");
             fw.flush(); // Ensure data is written immediately
             JOptionPane.showMessageDialog(this, "Utilizator inregistrat cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
             t1.setText("");

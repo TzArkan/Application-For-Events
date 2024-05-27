@@ -13,3 +13,5 @@ corpo,car,corpo@yahoo.com,Utilizator
 carta,bos,carta@yahoo.com,Utilizator
 bucsa,bucsa,bucsa@yahoo.com,Utilizator
 mumu,123,mumu@yahoo.com,Utilizator
+carac,carac,cuqa@yahoo.com,Utilizator
+stefy,stefy,stefy@yahoo.com,Utilizator

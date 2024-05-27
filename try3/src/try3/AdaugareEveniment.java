@@ -183,16 +183,16 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
     public void storeUserData() {
     
 
-        UserData ud=new UserData(t[0].getText(), t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), t[5].getText());
+        DateEveniment de=new DateEveniment(t[0].getText(), t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), t[5].getText());
         
         
-        if (numarBilete(ud.getNrBilete()) == false || cb.getSelectedIndex() == 0 || ud.getNume().isEmpty() || dataEvenimentValida(ud.getData()) == false || oraEvenimentValida(ud.getOra()) == false || ud.getLocatie().isEmpty() || pretEvenimentValid(ud.getPret()) == false) {
+        if (numarBilete(de.getNrBilete()) == false || cb.getSelectedIndex() == 0 || de.getNume().isEmpty() || dataEvenimentValida(de.getData()) == false || oraEvenimentValida(de.getOra()) == false || de.getLocatie().isEmpty() || pretEvenimentValid(de.getPret()) == false) {
             JOptionPane.showMessageDialog(this, "Introduceti toate datele corespunzatoare evenimentului", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String fileName = "dateEvenimente.txt";
         try (FileWriter fw = new FileWriter(fileName, true)) {
-            fw.write(cb.getSelectedItem() + "$" + ud.getNume() + "$" + ud.getData() + "$" + ud.getOra() + "$" + ud.getLocatie() + "$" + ud.getPret() + "$" + ud.getNrBilete() + "$" + "0" + "\n");
+            fw.write(cb.getSelectedItem() + "$" + de.getNume() + "$" + de.getData() + "$" + de.getOra() + "$" + de.getLocatie() + "$" + de.getPret() + "$" + de.getNrBilete() + "$" + "0" + "\n");
             fw.flush(); // Ensure data is written immediately
             JOptionPane.showMessageDialog(this, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {

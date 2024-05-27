@@ -1,6 +1,6 @@
 package try3;
 
-public class UserData{
+public class DateEveniment{
     private String numeEvenimente;
     private String dataEvenimente;
     private String oraEveniment;
@@ -8,13 +8,13 @@ public class UserData{
     private String pretEveniment;
     private String numarBileteEveniment;
 
-    public UserData(String numeEvenimente,String dataEvenimente,String ora,String locatie,String pret,String nrBilete){
+    public DateEveniment(String numeEvenimente,String dataEvenimente,String oraEveniment,String locatieEveniment,String pretEveniment,String numarBileteEveniment){
         this.numeEvenimente=numeEvenimente;
         this.dataEvenimente=dataEvenimente;
-        oraEveniment=ora;
-        locatieEveniment=locatie;
-        pretEveniment=pret;
-        numarBileteEveniment=nrBilete;
+        this.oraEveniment=oraEveniment;
+        this.locatieEveniment=locatieEveniment;
+        this.pretEveniment=pretEveniment;
+        this.numarBileteEveniment=numarBileteEveniment;
     }
     
     public String getNume(){ return numeEvenimente;}
