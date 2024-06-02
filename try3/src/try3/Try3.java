@@ -4,50 +4,6 @@
  */
 package try3;
 
-/*
-import javax.swing.*;
-import java.awt.event.*;
-public class Try3 extends JFrame {
-    private JButton b;
-    private AscultatorButon ab;//=null
-    public Try3(){
-        b=new JButton("apasa");
-        add(b);
-        ab=new AscultatorButon();
-        b.addActionListener(ab);
-        
-        //b.addActionListener(new AscultatorButon());
-        
-        
-        
-        
-        
-//      b.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e){
-//                JOptionPane.showMessageDialog(Fereastra.this, "Buna ziua!");
-//            }
-//        });
-//      b.addActionListener( e -> {
-//          JOptionPane.showMessageDialog(Fereastra.this, "Buna ziua!");
-//      });
-    }
-    
-    private class AscultatorButon implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            JOptionPane.showMessageDialog(Try3.this, "Buna ziua!");
-        }
-    }
-            
- public static void main(String[] args){
-     JFrame f=new Try3();
-     f.pack(); //se asigura ca fereastra e destul de larga pentru a afisa tot continutul, fara a fi prea larg totusi
-     f.setLocationRelativeTo(null); //f este plasat in centrul ecranului
-     f.setVisible(true);
-     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- }   
-}
-*/
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

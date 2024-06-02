@@ -16,23 +16,7 @@ public class LoginAdmin extends JFrame implements ILogin {
     private JPasswordField t2;
     private JButton b1, b2;
     private JFrame parentFrame;
-    private ControlButoane cb;
-
-    public class ControlButoane implements ActionListener {
-        private JFrame f;
-
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == b1) {
-                if (f == null) f = new AdminOptiuni(LoginAdmin.this);
-                t1.setText("");
-                f.setLocationRelativeTo(null);
-                f.setSize(350, 400);
-                setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                f.setVisible(true);
-                setVisible(false);
-            }
-        }
-    }
+    
 
     public LoginAdmin(JFrame parentFrame) {
         super("Login Administrator");
@@ -76,6 +60,7 @@ public class LoginAdmin extends JFrame implements ILogin {
     private void login() {
         String enteredUsername = t1.getText();
         String enteredPassword = new String(t2.getPassword());
+        String rol;
 
         if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Introduceti numele contului si parola.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -86,21 +71,19 @@ public class LoginAdmin extends JFrame implements ILogin {
         boolean found = false;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
+            String line = reader.readLine();
                 String[] parts = line.split(",");
                 String username = parts[0];
                 String password = parts[1];
+                rol= parts[2];
 
                 if (enteredUsername.equals(username) && enteredPassword.equals(password)) {
                     found = true;
-                    break;
                 }
-            }
 
             if (found) {
                 JOptionPane.showMessageDialog(this, "Autentificare reusita.", "Succes", JOptionPane.INFORMATION_MESSAGE);
-                AdminOptiuni adOpt= new AdminOptiuni(LoginAdmin.this);
+                AdminOptiuni adOpt= new AdminOptiuni(LoginAdmin.this,enteredUsername,rol);
                 adOpt.setLocationRelativeTo(null);
                 adOpt.setVisible(true);
                 adOpt.setSize(300,150);
@@ -114,5 +97,4 @@ public class LoginAdmin extends JFrame implements ILogin {
         }
     }
 
-    
 }

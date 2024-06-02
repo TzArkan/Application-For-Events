@@ -2,14 +2,13 @@ package try3;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -48,6 +47,57 @@ public class GestiuneEvenimenteCurente extends JFrame {
         e.printStackTrace();
     }
 }
+
+public void abonareEveniment(int linie, String username) {
+    String numeFisierEvenimente = "dateEvenimente.txt";  
+    File numeFisierUtilizator = new File(username+"Evenimente.txt");  
+    List<String> lines = new ArrayList<>();
+ 
+
+    if (!numeFisierUtilizator.exists()) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(numeFisierUtilizator))) {
+            writer.write("\n");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "A apărut o eroare la crearea fișierului.", "Eroare", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        }
+    }
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(numeFisierEvenimente))) {
+        String line;
+        int numarLinieCurent = 0;
+        
+        // Citeste toate liniile si le stocheaza
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
+            numarLinieCurent++;
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+        return;
+    }
+    
+    // Verifica daca linia exista
+    if (linie >= lines.size()) {
+        JOptionPane.showMessageDialog(null, "Linia specificată nu există.", "Eroare", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    // Ia linia de copiat din fisierul text
+    String linieDeCopiat = lines.get(linie);
+    
+    // Append the line to the file
+    try (FileWriter fw = new FileWriter(numeFisierUtilizator, true)) {
+        fw.write(linieDeCopiat + "$0" +"\n");
+        fw.flush(); // asigura scrierea imediata a liniei
+        JOptionPane.showMessageDialog(null, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "A apărut o eroare la înregistrarea datelor.", "Eroare", JOptionPane.ERROR_MESSAGE);
+    }
+
+}
+
 
 
 public void copiazaLinie(int linie) {
@@ -121,18 +171,22 @@ public void selectieEveniment(int alegere){
     for(int linie = rowCount - 1; linie >= 0; linie--) {
         JCheckBox checkBox = (JCheckBox)checkboxPanel.getComponent(linie);
         if(checkBox.isSelected()) { //verifica daca checkboxu de pe linie e selectat
-            // daca e selectat, sterge randul din tabel
-            tabel.removeRow(linie);
+            
             // sterge linia din fisierul text, corespunzatoare liniei din tabel
             stergeLinie(linie);
             // sterge checkboxu corespunzator din tabel
             checkboxPanel.remove(linie);
+            // daca e selectat, sterge randul din tabel
+            tabel.removeRow(linie);
         }
     }
 }
+
+    
     // reface partea de checkbox din tabel
     //checkboxPanel.revalidate();
-    //checkboxPanel.repaint();
+  
+  //checkboxPanel.repaint();
 }
 
  public void incarcaDinFisier() {
@@ -150,7 +204,7 @@ public void selectieEveniment(int alegere){
     }
 }
 
- public GestiuneEvenimenteCurente(JFrame parentFrame){
+ public GestiuneEvenimenteCurente(JFrame parentFrame, String username, String rol){
     
     super("Gestionarea evenimentelor curente");
     setLayout(new BorderLayout());
@@ -221,6 +275,7 @@ public void selectieEveniment(int alegere){
     
     
     dedicatButoane=new JPanel();
+    if(rol.equals("Admin")){
     b1=new JButton("Modifica eveniment");
     b1.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -245,6 +300,31 @@ public void selectieEveniment(int alegere){
         }
     });
     dedicatButoane.add(b3);
+}
+    if(rol.equals("Utilizator")){
+        b1=new JButton("Aboneaza-ma la eveniment");
+    b1.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            int rowCount = tabel.getRowCount();
+            for(int linie = rowCount - 1; linie >= 0; linie--) {
+                    JCheckBox checkBox = (JCheckBox)checkboxPanel.getComponent(linie);
+                    if(checkBox.isSelected()) { //verifica daca checkboxu de pe linie e selectat
+                        
+                        
+                        // sterge linia din fisierul text, corespunzatoare liniei din tabel
+                        abonareEveniment(linie,username);
+                        // sterge checkboxu corespunzator din tabel
+                        checkboxPanel.remove(linie);
+                        // daca e selectat, sterge randul din tabel
+                        tabel.removeRow(linie);
+                    }
+            }
+        }
+        });
+    dedicatButoane.add(b1);
+
+}
+
 
     b4=new JButton("Inapoi");
     b4.addActionListener(new ActionListener() {

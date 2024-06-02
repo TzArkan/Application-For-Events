@@ -61,6 +61,7 @@ public class LoginUtilizator extends JFrame implements ILogin{
     private void login() {
         String enteredUsername = t1.getText();
         String enteredPassword = new String(t2.getPassword());
+        String rol="";
 
         if (enteredUsername.isEmpty() || enteredPassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Introduceti numele contului si parola.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -76,6 +77,7 @@ public class LoginUtilizator extends JFrame implements ILogin{
                 String[] parts = line.split(",");
                 String username = parts[0];
                 String password = parts[1];
+                rol=parts[3];
 
                 if (enteredUsername.equals(username) && enteredPassword.equals(password)) {
                     found = true;
@@ -85,12 +87,18 @@ public class LoginUtilizator extends JFrame implements ILogin{
 
             if (found) {
                 JOptionPane.showMessageDialog(this, "Autentificare reusita.", "Succes", JOptionPane.INFORMATION_MESSAGE);
-                UtilizatorMeniu utilzEv= new UtilizatorMeniu(LoginUtilizator.this,enteredUsername);
+                UtilizatorMeniu utilzEv= new UtilizatorMeniu(LoginUtilizator.this,enteredUsername,rol);
+                UtilizatorNotificare utilizNotif= new UtilizatorNotificare(LoginUtilizator.this,enteredUsername);
                 t1.setText("");
                 t2.setText("");
                 utilzEv.setSize(800,350);
                 utilzEv.setLocationRelativeTo(null);
                 utilzEv.setVisible(true);
+                setVisible(false);
+
+                utilizNotif.setSize(500,150);
+                utilizNotif.setLocationRelativeTo(null);
+                utilizNotif.setVisible(true);
                 setVisible(false);
                 dispose();
             } else {

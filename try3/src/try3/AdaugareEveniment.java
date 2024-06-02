@@ -117,12 +117,13 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
 
         public void focusLost(FocusEvent e) {
             data = t[1].getText();
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false); // Ensure strict parsing
             try {
-                df.parse(data);
+                sdf.parse(data); // Try to parse the date
             } catch (ParseException nf) {
-                d = new JDialog(AdaugareEveniment.this, "Eroare");
-                d.add(new JLabel("   Introduceti data dupa formatul: zz/ll/yyyy"));
+                d = new JDialog((JFrame) SwingUtilities.getWindowAncestor(t[1]), "Eroare");
+                d.add(new JLabel("   Introduceti data dupa formatul: dd/MM/yyyy"));
                 d.setBounds(250, 250, 270, 100);
                 d.setVisible(true);
             }
@@ -153,11 +154,17 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
     }
 
     public boolean dataEvenimentValida(String dataEveniment) {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+        // Create a SimpleDateFormat instance with the desired format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        // Set lenient to false to enforce strict date parsing
+        sdf.setLenient(false);
+    
         try {
-            df.parse(dataEveniment);
+            // Try to parse the date
+            sdf.parse(dataEveniment);
             return true;
         } catch (ParseException e) {
+            // If parsing fails, return false
             return false;
         }
     }
