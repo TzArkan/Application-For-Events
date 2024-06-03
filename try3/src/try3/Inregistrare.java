@@ -3,6 +3,8 @@ package try3;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -76,6 +78,17 @@ public class Inregistrare extends JFrame {
         try (FileWriter fw = new FileWriter(conturiUtilizatoriDetalii, true)) {
             fw.write(du.getNume() + "," + du.getParola() + "," + du.getEmail() + ",Utilizator\n");
             fw.flush(); // Ensure data is written immediately
+            File numeFisierUtilizator = new File(du.getNume()+"Evenimente.txt");
+        
+        if (!numeFisierUtilizator.exists()) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(numeFisierUtilizator))) {
+            writer.write("10000\n\n");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "A apărut o eroare la crearea fișierului.", "Eroare", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        }
+    }
             JOptionPane.showMessageDialog(this, "Utilizator inregistrat cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
             t1.setText("");
             t3.setText("");

@@ -1,23 +1,6 @@
-Teatru$cuccuc$22/22/2022$22:22$asd$2313$0$0
-Muzica$dtg46uj5yr$22/22/2022$22:22$asd$2313$0$0
-Sport$asdasd$22/22/2022$22:22$asdasdasd$15$14$0
-Muzica$dtg46uj5yr$22/22/2022$22:22$asd$2313$0$0
-Film$jjjjjjjj$11/11/2022$22:10$asda$5$5$0
-Festival$dtg46uj5yr$22/22/2022$22:22$asd$2313$0$0
-Teatru$teatru$22/11/2022$11:11$aicisha$40$40$0
-Muzica$dtg46uj5yr$22/22/2022$22:22$asd$2313$0$0
-Sport$asdasd$22/22/2022$22:22$asdasdasd$15$14$0
-Film$jjjjjjjj$11/11/2022$22:10$asda$5$5$0
-Expozitii de arta$basbasbas$11/11/2022$22:22$aaaaaaaaaa$5$1000$0
-Muzica$dtg46uj5yr$22/22/2022$22:22$asd$2313$0$0
-Teatru$cuccuc$22/22/2022$22:22$asd$2313$0$0
-Festival$cra$11/11/2011$11:11$cra$32$44$0
-Festival$asd$32/05/2021$15:15$asd$12$12$0
-Film$asd$36/36/2024$11:11$asd$1$1$0
-Muzica$asd$02/06/2024$11:11$asd$12$12$0
-Sport$bbbb$02/06/2024$11:11$aaaa$5$5$0
-Teatru$asd$04/04/2024$11:11$asd$22$22$0
-Expozitii de arta$asd$02/06/2024$11:11$asd$22$22$0
-Teatru$asd$03/06/2024$15:15$asd$222$222$0
-Film$asd$03/06/2024$15:15$asd$222$222$0
-Teatru$asd$11/11/2024$15:15$asd$10000$123$0
+9
+5$Sanatate$gat$03/06/2024$11:11$picioare$200$120$3
+2$Muzica$concert temisan$04/06/2024$11:11$sala polivalenta$200$121$2
+3$Film$capra cu trei iezi$05/06/2024$11:11$cinema$200$121$2
+4$Teatru$cine a impuscat maimuta$05/06/2024$11:11$teatrul i.l.caragiale$200$118$5
+9$Sanatate$gat$03/06/2024$11:11$picioare$200$123$0

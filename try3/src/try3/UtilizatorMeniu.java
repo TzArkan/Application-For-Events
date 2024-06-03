@@ -18,8 +18,8 @@ import java.awt.event.*;
 
 
 public class UtilizatorMeniu extends JFrame{
-    private JFrame fereastraVeche,f,g;
-    private JButton b1, b2, b3, b4, b5, b6;
+    private JFrame fereastraVeche,f,g,h,i;
+    private JButton b1, b2, b3, b4, b5, b6,b7;
     private JComboBox cbx1,cbx2;
     private JLabel l1,l2,l3,l4,l5,l6;
     private JPanel p1,p2;
@@ -33,8 +33,8 @@ public class UtilizatorMeniu extends JFrame{
         l2=new JLabel("Aboneaza-te la urmatoarele categorii de evenimente");
         l3=new JLabel("Vezi toate evenimentele curente");
         l4=new JLabel("Vezi evenimentele curente la care esti abonat");
-        l5=new JLabel("Sterge toate preferintele curente");
-        l6=new JLabel("Buget utilizator: "+buget(username));
+        l5=new JLabel("Buget utilizator: "+buget(username));
+        l6=new JLabel("Vezi codurile biletelor");
         p2 = new JPanel();
 
         cbx1=new JComboBox();
@@ -62,9 +62,9 @@ public class UtilizatorMeniu extends JFrame{
         b2.setPreferredSize(new Dimension(150, 30));
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                incarcaCategorieAbonament(username,(String)cbx2.getSelectedItem());
+                if(cbx2.getSelectedIndex() != 0){incarcaCategorieAbonament(username,(String)cbx2.getSelectedItem());
                 cbx1.removeAllItems();
-                incarcaComboBox1(username, cbx1);
+                incarcaComboBox1(username, cbx1);}
             }
         });
 
@@ -96,16 +96,32 @@ public class UtilizatorMeniu extends JFrame{
                 g=null;
             }
         });
-
-        b6 = new JButton("Sterge");
+        b6 = new JButton("Adauga fonduri");
         b6.setPreferredSize(new Dimension(150, 30));
         b6.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                stergePreferinteUtilizator(username);
-                cbx1.removeAllItems();
-                
+            public void actionPerformed(ActionEvent e){
+                if (h == null) h = new AdaugaFonduri(UtilizatorMeniu.this,username);
+                h.setSize(300, 100);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                h.setVisible(true);
+                h=null;
             }
         });
+
+        b7 = new JButton("Bilete");
+        b7.setPreferredSize(new Dimension(150, 30));
+        b7.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                if (i == null) i = new UtilizatorBilete(UtilizatorMeniu.this,username);
+                i.setSize(300, 200);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                i.setVisible(true);
+                i=null;
+            }
+        });
+
+        
+    
 
         adaugaConstrangeri(l1,0,0,1,1, GridBagConstraints.WEST,0,10,0);
         adaugaConstrangeri(b1,0,2,1,1, GridBagConstraints.CENTER,0,10,0);
@@ -122,6 +138,7 @@ public class UtilizatorMeniu extends JFrame{
         adaugaConstrangeri(l5,4,0,1,1, GridBagConstraints.WEST,0,10,0);
         adaugaConstrangeri(b6,4,2,1,1, GridBagConstraints.CENTER,0,10,0);
         adaugaConstrangeri(l6,5,0,1,1, GridBagConstraints.WEST,0,10,0);
+        adaugaConstrangeri(b7,5,2,1,1, GridBagConstraints.CENTER,0,10,0);
         
         
         b5 = new JButton("Inapoi");
@@ -173,21 +190,6 @@ public class UtilizatorMeniu extends JFrame{
         gbc.fill = fill;
         gbc.insets = new Insets(0, 2 * spatiuOX, 0, 2 * spatiuOY);
         p1.add(c, gbc);
-    }
-
-    public void stergePreferinteUtilizator(String username){
-        File fisier = new File(username+"Evenimente.txt");
-
-        if (fisier.exists()) {
-            if (fisier.delete()) {
-                JOptionPane.showMessageDialog(null, "Preferintele au fost sterse", "Succes", JOptionPane.INFORMATION_MESSAGE);
-        
-            } else {
-                System.out.println("Nu s-au putut sterge preferintele");
-            }
-        } else {
-            System.out.println("Nu aveti nicio preferinta existenta");
-        }
     }
 
     public String buget(String username){

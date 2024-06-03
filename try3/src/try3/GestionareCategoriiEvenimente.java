@@ -152,10 +152,12 @@ public class GestionareCategoriiEvenimente extends JFrame {
     private void stergeCategorie() {
     int numarLinieCBSelectat=cb.getSelectedIndex();
     String numeFisier = "categoriiEvenimente.txt";
+    if(numarLinieCBSelectat!=0){
     try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
         List<String> lines = new ArrayList<>();
         String linie;
         int numarLinieCurent = 0;
+        
         while ((linie = reader.readLine()) != null) {
             if (numarLinieCurent != numarLinieCBSelectat) {
                 lines.add(linie);
@@ -176,5 +178,6 @@ public class GestionareCategoriiEvenimente extends JFrame {
     } catch (IOException e) {
         e.printStackTrace();
     }
+}
 }
 }

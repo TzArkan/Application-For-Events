@@ -28,13 +28,23 @@ public class GestiuneEvenimenteCurente extends JFrame {
         List<String> lines = new ArrayList<>();
         String linie;
         int numarLinieCurent = 0;
+
+        // Read the first line to get the event count
+        String firstLine = reader.readLine();
+        if (firstLine != null) {
+            lines.add(firstLine); // add the first line to the list
+            numarLinieCurent++; // increment the line counter
+        }
+
+        // Read the rest of the lines
         while ((linie = reader.readLine()) != null) {
-            if (numarLinieCurent != numarLinie) {
+            if (numarLinieCurent != numarLinie + 1) { // +1 to account for the first line
                 lines.add(linie);
             }
             numarLinieCurent++;
         }
 
+        // Write back the updated content
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(numeFisier))) {
             for (String line : lines) {
                 writer.write(line);
@@ -50,25 +60,14 @@ public class GestiuneEvenimenteCurente extends JFrame {
 
 public void abonareEveniment(int linie, String username) {
     String numeFisierEvenimente = "dateEvenimente.txt";  
-    File numeFisierUtilizator = new File(username+"Evenimente.txt");  
+    File numeFisierUtilizator = new File(username + "Evenimente.txt");  
     List<String> lines = new ArrayList<>();
- 
-
-    if (!numeFisierUtilizator.exists()) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(numeFisierUtilizator))) {
-            writer.write("\n");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "A apărut o eroare la crearea fișierului.", "Eroare", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-            return;
-        }
-    }
 
     try (BufferedReader reader = new BufferedReader(new FileReader(numeFisierEvenimente))) {
         String line;
         int numarLinieCurent = 0;
-        
-        // Citeste toate liniile si le stocheaza
+
+        // Read all lines and store them
         while ((line = reader.readLine()) != null) {
             lines.add(line);
             numarLinieCurent++;
@@ -77,60 +76,75 @@ public void abonareEveniment(int linie, String username) {
         e.printStackTrace();
         return;
     }
-    
-    // Verifica daca linia exista
+
+    // Check if the specified line exists
     if (linie >= lines.size()) {
         JOptionPane.showMessageDialog(null, "Linia specificată nu există.", "Eroare", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    
-    // Ia linia de copiat din fisierul text
-    String linieDeCopiat = lines.get(linie);
-    
+
+    // Get the line to be copied from the text file
+    String linieDeCopiat = lines.get(linie+1);
+
     // Append the line to the file
-    try (FileWriter fw = new FileWriter(numeFisierUtilizator, true)) {
-        fw.write(linieDeCopiat + "$0" +"\n");
-        fw.flush(); // asigura scrierea imediata a liniei
+    try (FileWriter fw = new FileWriter(numeFisierUtilizator, true);
+         BufferedWriter writer = new BufferedWriter(fw)) {  // Open BufferedWriter in try-with-resources
+        writer.write(linieDeCopiat + "$0" + "\n");
+        // No need to call fw.flush(), BufferedWriter will automatically flush when closed
         JOptionPane.showMessageDialog(null, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
     } catch (IOException e) {
         JOptionPane.showMessageDialog(null, "A apărut o eroare la înregistrarea datelor.", "Eroare", JOptionPane.ERROR_MESSAGE);
     }
-
 }
 
-
-
 public void copiazaLinie(int linie) {
-    String numeFisier = "dateEvenimente.txt";    
+    String numeFisier = "dateEvenimente.txt";
     List<String> lines = new ArrayList<>();
-    
+    int eventCount = 0;
+
     try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
         String line;
-        int numarLinieCurent = 0;
         
-        // Citeste toate liniile si le stocheaza
+        // Read the first line to get the event count
+        String firstLine = reader.readLine();
+        if (firstLine != null) {
+            eventCount = Integer.parseInt(firstLine);
+        }
+        
+        // Read the rest of the lines and store them
         while ((line = reader.readLine()) != null) {
             lines.add(line);
-            numarLinieCurent++;
         }
     } catch (IOException e) {
         e.printStackTrace();
         return;
     }
-    
-    // Verifica daca linia exista
+
+    // Check if the specified line exists
     if (linie >= lines.size()) {
         JOptionPane.showMessageDialog(null, "Linia specificată nu există.", "Eroare", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    
-    // Ia linia de copiat din fisierul text
+
+    // Increment the event count
+    eventCount++;
+
+    // Get the line to be copied and modify it
     String linieDeCopiat = lines.get(linie);
-    
-    // Append the line to the file
-    try (FileWriter fw = new FileWriter(numeFisier, true)) {
-        fw.write(linieDeCopiat + "\n");
-        fw.flush(); // asigura scrierea imediata a liniei
+    String[] segments = linieDeCopiat.split("\\$", 2);
+    String modifiedLine = eventCount + "$" + (segments.length > 1 ? segments[1] : "");
+
+    // Append the modified line to the list of lines
+    lines.add(modifiedLine);
+
+    // Write back the updated content to the file
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(numeFisier))) {
+        writer.write(String.valueOf(eventCount));
+        writer.newLine();
+        for (String fileLine : lines) {
+            writer.write(fileLine);
+            writer.newLine();
+        }
         JOptionPane.showMessageDialog(null, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
     } catch (IOException e) {
         JOptionPane.showMessageDialog(null, "A apărut o eroare la înregistrarea datelor.", "Eroare", JOptionPane.ERROR_MESSAGE);
@@ -193,6 +207,7 @@ public void selectieEveniment(int alegere){
     tabel.setRowCount(0); 
     try (BufferedReader reader = new BufferedReader(new FileReader("dateEvenimente.txt"))) {
         String line;
+        line = reader.readLine();
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split("\\$");     // \\$ ca sa ia caracterul $
             
@@ -209,10 +224,11 @@ public void selectieEveniment(int alegere){
     super("Gestionarea evenimentelor curente");
     setLayout(new BorderLayout());
     tabel=new DefaultTableModel(50,8);
+    String[] NumeColoane = {"Cod eveniment","Categorie eveniment", "Nume eveniment", "Data eveniment", "Ora eveniment", "Locatie eveniment","Pret bilet eveniment","Numar bilete disponibile","Numar bilete vandute"};
+    tabel.setColumnIdentifiers(NumeColoane);
     incarcaDinFisier();
 
-    String[] NumeColoane = {"Categorie eveniment", "Nume eveniment", "Data eveniment", "Ora eveniment", "Locatie eveniment","Pret bilet eveniment","Numar bilete disponibile","Numar bilete vandute"};
-    tabel.setColumnIdentifiers(NumeColoane);
+    
 
     t=new JTable(tabel);
     t.setRowHeight(20);

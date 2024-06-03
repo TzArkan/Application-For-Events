@@ -5,6 +5,7 @@ import java.awt.*;
 import java.text.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -112,7 +113,7 @@ public class ModificareEveniment extends JFrame implements IGesEveniment {
                 String[] parts = line.split("\\$");     // \\$ ca sa ia caracterul $
                 
                 for(int i=0; i<6; i++) {
-                    t[i]= new JTextField(parts[i+1]);
+                    t[i]= new JTextField(parts[i+2]);
                 }
                 
                 
@@ -220,39 +221,67 @@ public class ModificareEveniment extends JFrame implements IGesEveniment {
     }
 
     public void stocareDate(int linie) {
-        String numeEveniment = t[0].getText();
-        String dataEveniment = t[1].getText();
-        String oraEveniment = t[2].getText();
-        String locatieEveniment = t[3].getText();
-        String pretEveniment = t[4].getText();
-        String numarBileteEveniment = t[5].getText();
-        
-        if (numarBilete(numarBileteEveniment)==false || cb.getSelectedIndex()==0 || numeEveniment.isEmpty() || dataEvenimentValida(dataEveniment)==false || oraEvenimentValida(oraEveniment)==false || locatieEveniment.isEmpty() || pretEvenimentValid(pretEveniment)==false) {
+        DateEveniment de = new DateEveniment(t[0].getText(), t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), t[5].getText());
+    
+        if (!numarBilete(de.getNrBilete()) || cb.getSelectedIndex() == 0 || de.getNume().isEmpty() || !dataEvenimentValida(de.getData()) || !oraEvenimentValida(de.getOra()) || de.getLocatie().isEmpty() || !pretEvenimentValid(de.getPret())) {
             JOptionPane.showMessageDialog(this, "Introduceti toate datele corespunzatoare evenimentului", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String newLine = cb.getSelectedItem() + "$" + numeEveniment + "$" + dataEveniment + "$" + oraEveniment + "$" + locatieEveniment + "$" + pretEveniment + "$" + numarBileteEveniment + "$0";
-        
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader("dateEvenimente.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
+    
+        String fileName = "dateEvenimente.txt";
+        File file = new File(fileName);
+        int eventNumber;
+        List<String> fileContents = new ArrayList<>();
+    
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+                eventNumber = 1;
+            } else {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String firstLine = br.readLine();
+                if (firstLine == null) {
+                    eventNumber = 1;
+                } else {
+                    eventNumber = Integer.parseInt(firstLine) + 1;
+                    fileContents.add(firstLine);
+                }
+                
+                String line;
+                while ((line = br.readLine()) != null) {
+                    fileContents.add(line);
+                }
+                br.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (linie >= 0 && linie < lines.size()) {
-            lines.set(linie, newLine);
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("dateEvenimente.txt"))) {
-            for (String line : lines) {
-                writer.write(line);
-                writer.newLine();
+    
+            // Increment the event number and update the first line
+            if (fileContents.isEmpty()) {
+                fileContents.add(String.valueOf(eventNumber));
+            } else {
+                fileContents.set(0, String.valueOf(eventNumber));
             }
+    
+            // Create the new event data
+            String eventData = eventNumber + "$" + cb.getSelectedItem() + "$" + de.getNume() + "$" + de.getData() + "$" + de.getOra() + "$" + de.getLocatie() + "$" + de.getPret() + "$" + de.getNrBilete() + "$" + "0";
+    
+            // Replace the old line with the new event data if the line index is valid
+            if (linie >= 1 && linie < fileContents.size()) {
+                fileContents.set(linie, eventData);
+            } else {
+                // If the specified line does not exist, append the new event data
+                fileContents.add(eventData);
+            }
+    
+            // Write back to the file
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for (String fileLine : fileContents) {
+                bw.write(fileLine);
+                bw.newLine();
+            }
+            bw.close();
+    
             JOptionPane.showMessageDialog(this, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
+    
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "A aparut o eroare la inregistrarea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
         }

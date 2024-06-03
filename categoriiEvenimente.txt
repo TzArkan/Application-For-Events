@@ -1,10 +1,8 @@
-Sanatate
+Alegeti categoria evenimentului
 Muzica
-Festival
-Sport
 Teatru
 Film
-Carte
+Sport
+Concursuri
 Inaugurari
-Expozitii de arta
-Monden
+Sanatate

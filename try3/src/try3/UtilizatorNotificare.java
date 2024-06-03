@@ -15,29 +15,22 @@ import java.util.Date;
 public class UtilizatorNotificare extends JFrame {
 
     private JFrame fereastraVeche;
-    private JButton b1;
-    private JLabel l1,l2,l3;
-    private JPanel p1,p2;
+    private JLabel l1;
+    private JPanel p1;
     public ArrayList<DateEveniment> evenimente;
 
     public UtilizatorNotificare(JFrame fereastraVeche, String username){
         super("Notificari utilizator: "+username);
         File numeFisierUtilizator = new File(username+"Evenimente.txt");
         
-        if (!numeFisierUtilizator.exists()) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(numeFisierUtilizator))) {
-            writer.write("10000\n");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "A apărut o eroare la crearea fișierului.", "Eroare", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-            return;
-        }
-    }
         try {
             var br = new BufferedReader(new FileReader(numeFisierUtilizator));
             var linie = "";
             DateEveniment eveniment;
             String[] s;
+
+            br.readLine();
+            br.readLine();
 
             // Get the short date format instance
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -55,10 +48,10 @@ public class UtilizatorNotificare extends JFrame {
                 s = linie.split("[$]");
                 if (s.length >= 3) {
                     try {
-                        Date eventDate = sdf.parse(s[2]);
+                        Date eventDate = sdf.parse(s[3]);
                         // Compare the event date with the current date
                         if (sdf.format(eventDate).equals(formattedDate)) {
-                            String evenAzi="Evenimentul "+s[1]+" din categoria "+s[0]+" va avea loc astazi la ora "+s[3];
+                            String evenAzi="Evenimentul "+s[2]+" din categoria "+s[1]+" va avea loc astazi la ora "+s[4];
                             //Teatru$cuccuc$22/22/2022$22:22$asd$2313$0$0
                             JLabel eventLabel = new JLabel(evenAzi);
                             p1.add(eventLabel);

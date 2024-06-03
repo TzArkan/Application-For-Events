@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.*;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,6 +13,8 @@ import java.awt.event.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 //dawdawwad
 public class AdaugareEveniment extends JFrame implements IGesEveniment {
     private JLabel[] l;
@@ -188,20 +192,60 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
     }
 
     public void storeUserData() {
+        DateEveniment de = new DateEveniment(t[0].getText(), t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), t[5].getText());
     
-
-        DateEveniment de=new DateEveniment(t[0].getText(), t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), t[5].getText());
-        
-        
-        if (numarBilete(de.getNrBilete()) == false || cb.getSelectedIndex() == 0 || de.getNume().isEmpty() || dataEvenimentValida(de.getData()) == false || oraEvenimentValida(de.getOra()) == false || de.getLocatie().isEmpty() || pretEvenimentValid(de.getPret()) == false) {
+        if (!numarBilete(de.getNrBilete()) || cb.getSelectedIndex() == 0 || de.getNume().isEmpty() || !dataEvenimentValida(de.getData()) || !oraEvenimentValida(de.getOra()) || de.getLocatie().isEmpty() || !pretEvenimentValid(de.getPret())) {
             JOptionPane.showMessageDialog(this, "Introduceti toate datele corespunzatoare evenimentului", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+    
         String fileName = "dateEvenimente.txt";
-        try (FileWriter fw = new FileWriter(fileName, true)) {
-            fw.write(cb.getSelectedItem() + "$" + de.getNume() + "$" + de.getData() + "$" + de.getOra() + "$" + de.getLocatie() + "$" + de.getPret() + "$" + de.getNrBilete() + "$" + "0" + "\n");
-            fw.flush(); // Ensure data is written immediately
+        File file = new File(fileName);
+        int eventNumber;
+        List<String> fileContents = new ArrayList<>();
+    
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+                eventNumber = 1;
+            } else {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String firstLine = br.readLine();
+                if (firstLine == null) {
+                    eventNumber = 1;
+                } else {
+                    eventNumber = Integer.parseInt(firstLine) + 1;
+                    fileContents.add(firstLine);
+                }
+                
+                String line;
+                while ((line = br.readLine()) != null) {
+                    fileContents.add(line);
+                }
+                br.close();
+            }
+    
+            // Increment the event number and update the first line
+            if (fileContents.isEmpty()) {
+                fileContents.add(String.valueOf(eventNumber));
+            } else {
+                fileContents.set(0, String.valueOf(eventNumber));
+            }
+    
+            // Append the new event data
+            String eventData = eventNumber + "$" + cb.getSelectedItem() + "$" + de.getNume() + "$" + de.getData() + "$" + de.getOra() + "$" + de.getLocatie() + "$" + de.getPret() + "$" + de.getNrBilete() + "$0";
+            fileContents.add(eventData);
+    
+            // Write back to the file
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for (String fileLine : fileContents) {
+                bw.write(fileLine);
+                bw.newLine();
+            }
+            bw.close();
+    
             JOptionPane.showMessageDialog(this, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
+    
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "A aparut o eroare la inregistrarea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
         }
