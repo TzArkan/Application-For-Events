@@ -45,7 +45,7 @@ public class Login extends JFrame {
         this.fereastraVeche = fereastraVeche;
         JPanel p1 = new JPanel(new GridLayout(1, 2));
         JPanel p2 = new JPanel();
-        
+
 
         b1 = new JButton("Utilizator");
         cb = new ControlButoane();

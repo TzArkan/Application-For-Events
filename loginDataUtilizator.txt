@@ -1,17 +1,1 @@
 car,car,car@yahoo.com,Utilizator
-bos,bos,bos@yahoo.com,Utilizator
-cuc,cuc,cuc@yahoo.com,Utilizator
-chestii,chestii,chestii@yahoo.com,Utilizator
-stefan,cuc,stefan@yahoo.com,Utilizator
-lala,lala,lala@yahoo.com,Utilizator
-caras,caras,caras@yahoo.com,Utilizator
-baras,baras,baras@yahoo.com,Utilizator
-bacale,bacale,bacale@yahoo.com,Utilizator
-microunde,microunde,bacale@yahoo.com,Utilizator
-bucifal,bucifal,bucifal@yahoo.com,Utilizator
-corpo,car,corpo@yahoo.com,Utilizator
-carta,bos,carta@yahoo.com,Utilizator
-bucsa,bucsa,bucsa@yahoo.com,Utilizator
-mumu,123,mumu@yahoo.com,Utilizator
-carac,carac,cuqa@yahoo.com,Utilizator
-stefy,stefy,stefy@yahoo.com,Utilizator

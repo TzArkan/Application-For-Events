@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.*;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.awt.event.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+//dawdawwad
 public class AdaugareEveniment extends JFrame implements IGesEveniment {
     private JLabel[] l;
     private JLabel l0, pr;
@@ -117,12 +119,13 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
 
         public void focusLost(FocusEvent e) {
             data = t[1].getText();
-            DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false); // Ensure strict parsing
             try {
-                df.parse(data);
+                sdf.parse(data); // Try to parse the date
             } catch (ParseException nf) {
-                d = new JDialog(AdaugareEveniment.this, "Eroare");
-                d.add(new JLabel("   Introduceti data dupa formatul: zz/ll/yyyy"));
+                d = new JDialog((JFrame) SwingUtilities.getWindowAncestor(t[1]), "Eroare");
+                d.add(new JLabel("   Introduceti data dupa formatul: dd/MM/yyyy"));
                 d.setBounds(250, 250, 270, 100);
                 d.setVisible(true);
             }
@@ -153,11 +156,17 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
     }
 
     public boolean dataEvenimentValida(String dataEveniment) {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+        // Create a SimpleDateFormat instance with the desired format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        // Set lenient to false to enforce strict date parsing
+        sdf.setLenient(false);
+    
         try {
-            df.parse(dataEveniment);
+            // Try to parse the date
+            sdf.parse(dataEveniment);
             return true;
         } catch (ParseException e) {
+            // If parsing fails, return false
             return false;
         }
     }
@@ -181,20 +190,60 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
     }
 
     public void storeUserData() {
+        DateEveniment de = new DateEveniment(t[0].getText(), t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), t[5].getText());
     
-
-        DateEveniment de=new DateEveniment(t[0].getText(), t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), t[5].getText());
-        
-        
-        if (numarBilete(de.getNrBilete()) == false || cb.getSelectedIndex() == 0 || de.getNume().isEmpty() || dataEvenimentValida(de.getData()) == false || oraEvenimentValida(de.getOra()) == false || de.getLocatie().isEmpty() || pretEvenimentValid(de.getPret()) == false) {
+        if (!numarBilete(de.getNrBilete()) || cb.getSelectedIndex() == 0 || de.getNume().isEmpty() || !dataEvenimentValida(de.getData()) || !oraEvenimentValida(de.getOra()) || de.getLocatie().isEmpty() || !pretEvenimentValid(de.getPret())) {
             JOptionPane.showMessageDialog(this, "Introduceti toate datele corespunzatoare evenimentului", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+    
         String fileName = "dateEvenimente.txt";
-        try (FileWriter fw = new FileWriter(fileName, true)) {
-            fw.write(cb.getSelectedItem() + "$" + de.getNume() + "$" + de.getData() + "$" + de.getOra() + "$" + de.getLocatie() + "$" + de.getPret() + "$" + de.getNrBilete() + "$" + "0" + "\n");
-            fw.flush(); // Ensure data is written immediately
+        File file = new File(fileName);
+        int eventNumber;
+        List<String> fileContents = new ArrayList<>();
+    
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+                eventNumber = 1;
+            } else {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String firstLine = br.readLine();
+                if (firstLine == null) {
+                    eventNumber = 1;
+                } else {
+                    eventNumber = Integer.parseInt(firstLine) + 1;
+                    fileContents.add(firstLine);
+                }
+                
+                String line;
+                while ((line = br.readLine()) != null) {
+                    fileContents.add(line);
+                }
+                br.close();
+            }
+    
+            // Increment the event number and update the first line
+            if (fileContents.isEmpty()) {
+                fileContents.add(String.valueOf(eventNumber));
+            } else {
+                fileContents.set(0, String.valueOf(eventNumber));
+            }
+    
+            // Append the new event data
+            String eventData = eventNumber + "$" + cb.getSelectedItem() + "$" + de.getNume() + "$" + de.getData() + "$" + de.getOra() + "$" + de.getLocatie() + "$" + de.getPret() + "$" + de.getNrBilete() + "$0";
+            fileContents.add(eventData);
+    
+            // Write back to the file
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for (String fileLine : fileContents) {
+                bw.write(fileLine);
+                bw.newLine();
+            }
+            bw.close();
+    
             JOptionPane.showMessageDialog(this, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
+    
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "A aparut o eroare la inregistrarea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
         }
