@@ -84,9 +84,11 @@ public class LoginAdmin extends JFrame implements ILogin {
             if (found) {
                 JOptionPane.showMessageDialog(this, "Autentificare reusita.", "Succes", JOptionPane.INFORMATION_MESSAGE);
                 AdminOptiuni adOpt= new AdminOptiuni(LoginAdmin.this,enteredUsername,rol);
+                t1.setText("");
+                t2.setText("");
                 adOpt.setLocationRelativeTo(null);
                 adOpt.setVisible(true);
-                adOpt.setSize(300,150);
+                adOpt.setSize(300,200);
                 setVisible(false);
                 dispose();
             } else {

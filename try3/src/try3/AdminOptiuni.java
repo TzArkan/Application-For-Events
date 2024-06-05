@@ -9,8 +9,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class AdminOptiuni extends JFrame{
-    private JFrame fereastraVeche,f,i;
-    private JButton b1, b2, b3, b4, b5;
+    private JFrame fereastraVeche,f,i,j;
+    private JButton b1, b2, b3, b4, b5, b6;
     private ControlButoane cb;
    
 
@@ -48,7 +48,7 @@ public class AdminOptiuni extends JFrame{
     public AdminOptiuni(JFrame fereastraVeche, String username, String rol) {
         super(rol+": "+username);
         this.fereastraVeche = fereastraVeche;
-        JPanel p1 = new JPanel(new GridLayout(4, 1));
+        JPanel p1 = new JPanel(new GridLayout(5, 1));
         
         JPanel p2 = new JPanel();
         
@@ -64,8 +64,7 @@ public class AdminOptiuni extends JFrame{
                 f=null;
             }
         });
-        p1.add(b1);
-        
+        p1.add(b1);      
 
         
         b2 = new JButton("Adauga sau sterge categorii de evenimente");
@@ -75,6 +74,21 @@ public class AdminOptiuni extends JFrame{
         b3 = new JButton("Adaugare evenimente");
         b3.addActionListener(cb);
         p1.add(b3);
+
+        b6 = new JButton("Vezi biletele cumparate");
+        b6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                if (j == null) j = new UtilizatorBilete(AdminOptiuni.this,username,rol);
+                int oX=350;
+                int oY=350;
+                j.setSize(400,200);
+                j.setLocation(oX, oY);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                j.setVisible(true);
+                j=null;
+            }
+        });
+        p1.add(b6);
 
         b4 = new JButton("Schimba parola");
         b4.addActionListener(new ActionListener() {
@@ -102,6 +116,7 @@ public class AdminOptiuni extends JFrame{
             }
         });
         p2.add(b5);
+        
 
         this.add(p1);
         this.add(p2, BorderLayout.SOUTH);

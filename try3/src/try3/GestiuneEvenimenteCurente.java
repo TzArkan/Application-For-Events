@@ -325,14 +325,9 @@ public void selectieEveniment(int alegere){
             for(int linie = rowCount - 1; linie >= 0; linie--) {
                     JCheckBox checkBox = (JCheckBox)checkboxPanel.getComponent(linie);
                     if(checkBox.isSelected()) { //verifica daca checkboxu de pe linie e selectat
-                        
-                        
                         // sterge linia din fisierul text, corespunzatoare liniei din tabel
                         abonareEveniment(linie,username);
-                        // sterge checkboxu corespunzator din tabel
-                        checkboxPanel.remove(linie);
-                        // daca e selectat, sterge randul din tabel
-                        tabel.removeRow(linie);
+                    
                     }
             }
         }

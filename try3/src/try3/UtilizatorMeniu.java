@@ -5,9 +5,7 @@
 package try3;
 
 import javax.swing.*;
-
 import java.awt.*;
-import java.text.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -18,10 +16,10 @@ import java.awt.event.*;
 
 
 public class UtilizatorMeniu extends JFrame{
-    private JFrame fereastraVeche,f,g,h,i;
-    private JButton b1, b2, b3, b4, b5, b6,b7;
+    private JFrame fereastraVeche,f,g,h,i,k;
+    private JButton b1, b2, b3, b4, b5, b6, b7, b8;
     private JComboBox cbx1,cbx2;
-    private JLabel l1,l2,l3,l4,l5,l6;
+    private JLabel l1,l2,l3,l4,l5,l6, l7;
     private JPanel p1,p2;
     private GridBagConstraints gbc;
 
@@ -32,6 +30,7 @@ public class UtilizatorMeniu extends JFrame{
         l1=new JLabel("Categorii de evenimente la care esti abonat");
         l2=new JLabel("Aboneaza-te la urmatoarele categorii de evenimente");
         l3=new JLabel("Vezi toate evenimentele curente");
+        l7=new JLabel("Vezi evenimentele la ale caror categorii esti abonat");
         l4=new JLabel("Vezi evenimentele curente la care esti abonat");
         l5=new JLabel("Buget utilizator: "+buget(username));
         l6=new JLabel("Vezi codurile biletelor");
@@ -81,6 +80,19 @@ public class UtilizatorMeniu extends JFrame{
             }
         });
 
+        b8 = new JButton("Vezi");
+        b8.setPreferredSize(new Dimension(150, 30));
+        b8.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                if (k == null) k = new GestionareEvenCateg(UtilizatorMeniu.this,username,rol);
+                k.setLocation(0, 0);
+                k.setSize(1300, 300);
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                k.setVisible(true);
+                k=null;
+            }
+        });
+
 
         
         
@@ -112,13 +124,15 @@ public class UtilizatorMeniu extends JFrame{
         b7.setPreferredSize(new Dimension(150, 30));
         b7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                if (i == null) i = new UtilizatorBilete(UtilizatorMeniu.this,username);
+                if (i == null) i = new UtilizatorBilete(UtilizatorMeniu.this,username,rol);
                 i.setSize(300, 200);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 i.setVisible(true);
                 i=null;
             }
         });
+
+        
 
         
     
@@ -133,12 +147,15 @@ public class UtilizatorMeniu extends JFrame{
         
         adaugaConstrangeri(l3,2,0,1,1, GridBagConstraints.WEST,0,10,0);
         adaugaConstrangeri(b3,2,2,1,1, GridBagConstraints.CENTER,0,10,0);
-        adaugaConstrangeri(l4,3,0,1,1, GridBagConstraints.WEST,0,10,0);
-        adaugaConstrangeri(b4,3,2,1,1, GridBagConstraints.CENTER,0,10,0);
-        adaugaConstrangeri(l5,4,0,1,1, GridBagConstraints.WEST,0,10,0);
-        adaugaConstrangeri(b6,4,2,1,1, GridBagConstraints.CENTER,0,10,0);
-        adaugaConstrangeri(l6,5,0,1,1, GridBagConstraints.WEST,0,10,0);
-        adaugaConstrangeri(b7,5,2,1,1, GridBagConstraints.CENTER,0,10,0);
+        adaugaConstrangeri(l7,3,0,1,1, GridBagConstraints.WEST,0,10,0);
+        adaugaConstrangeri(b8,3,2,1,1, GridBagConstraints.CENTER,0,10,0);
+        adaugaConstrangeri(l4,4,0,1,1, GridBagConstraints.WEST,0,10,0);
+        adaugaConstrangeri(b4,4,2,1,1, GridBagConstraints.CENTER,0,10,0);
+        adaugaConstrangeri(l5,5,0,1,1, GridBagConstraints.WEST,0,10,0);
+        adaugaConstrangeri(b6,5,2,1,1, GridBagConstraints.CENTER,0,10,0);
+        adaugaConstrangeri(l6,6,0,1,1, GridBagConstraints.WEST,0,10,0);
+        adaugaConstrangeri(b7,6,2,1,1, GridBagConstraints.CENTER,0,10,0);
+        
         
         
         b5 = new JButton("Inapoi");
@@ -158,6 +175,8 @@ public class UtilizatorMeniu extends JFrame{
 
         
     }
+
+    
 
     public void adaugaConstrangeri(JComponent c, int linie, int col, int latime, int inaltime, int anchor, int fill, int spatiuOX, int spatiuOY) {
         gbc.gridx = col;
@@ -243,7 +262,7 @@ public class UtilizatorMeniu extends JFrame{
                 writer.write(content.toString());
             }
     
-            JOptionPane.showMessageDialog(null, "Datele evenimentului au fost actualizate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Categoria a fost stearsa cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "A aparut o eroare la inregistrarea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();

@@ -4,3 +4,8 @@ car$3$2
 car$4$4
 car$5$3
 car$4$5
+car$5$4
+car$2$3
+car$3$3
+bas$9$1
+bas$2$4

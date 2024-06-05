@@ -1,1 +1,2 @@
 car,car,car@yahoo.com,Utilizator
+bas,bas,bas@yahoo.com,Utilizator

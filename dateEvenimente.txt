@@ -1,6 +1,6 @@
 9
-5$Sanatate$gat$03/06/2024$11:11$picioare$200$120$3
-2$Muzica$concert temisan$04/06/2024$11:11$sala polivalenta$200$121$2
-3$Film$capra cu trei iezi$05/06/2024$11:11$cinema$200$121$2
+5$Sanatate$gat$03/06/2024$11:11$picioare$200$119$4
+2$Muzica$concert temisan$04/06/2024$11:11$sala polivalenta$200$119$4
+3$Film$capra cu trei iezi$05/06/2024$11:11$cinema$200$120$3
 4$Teatru$cine a impuscat maimuta$05/06/2024$11:11$teatrul i.l.caragiale$200$118$5
-9$Sanatate$gat$03/06/2024$11:11$picioare$200$123$0
+9$Sanatate$gat$03/06/2024$11:11$picioare$200$122$1
