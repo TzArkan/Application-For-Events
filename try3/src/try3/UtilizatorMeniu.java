@@ -14,8 +14,9 @@ import java.io.IOException;
 import java.awt.event.*;
 
 
-
+// Definim clasa UtilizatorMeniu, care extinde JFrame
 public class UtilizatorMeniu extends JFrame{
+        // Declarații pentru ferestre, butoane, combobox-uri, etichete și panouri
     private JFrame fereastraVeche,f,g,h,i,k;
     private JButton b1, b2, b3, b4, b5, b6, b7, b8;
     private JComboBox cbx1,cbx2;
@@ -23,10 +24,11 @@ public class UtilizatorMeniu extends JFrame{
     private JPanel p1,p2;
     private GridBagConstraints gbc;
 
-   
+    // Constructorul clasei UtilizatorMeniu
     public UtilizatorMeniu(JFrame fereastraVeche,String username, String rol) {
-        super("Utilizator: "+username);
-        this.fereastraVeche = fereastraVeche;
+        super("Utilizator: "+username);// Setăm titlul ferestrei
+        this.fereastraVeche = fereastraVeche;// Stocăm referința la fereastra veche pentru a reveni la ea
+        // Inițializăm etichetele
         l1=new JLabel("Categorii de evenimente la care esti abonat");
         l2=new JLabel("Aboneaza-te la urmatoarele categorii de evenimente");
         l3=new JLabel("Vezi toate evenimentele curente");
@@ -34,23 +36,25 @@ public class UtilizatorMeniu extends JFrame{
         l4=new JLabel("Vezi evenimentele curente la care esti abonat");
         l5=new JLabel("Buget utilizator: "+buget(username));
         l6=new JLabel("Vezi codurile biletelor");
-        p2 = new JPanel();
+        p2 = new JPanel();// Inițializăm panoul p2
 
+        // Inițializăm combobox-urile și le încărcăm cu date
         cbx1=new JComboBox();
         cbx2=new JComboBox();
         incarcaComboBox1(username,cbx1);
         incarcaComboBox2();
         cbx1.setPreferredSize(new Dimension(150, 30));
         cbx2.setPreferredSize(new Dimension(150, 30));
-
+        // Setăm layout-ul pentru panoul principal
         GridBagLayout gbl= new GridBagLayout();
         gbc= new GridBagConstraints();
         p1 = new JPanel(gbl);
-        
+            // Inițializăm butoanele și adăugăm acțiuni pentru acestea
         b1 = new JButton("Dezaboneaza-ma");
         b1.setPreferredSize(new Dimension(150, 30));
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // Acțiune pentru dezabonare
                 stergeCategorieAbonament(username,(String)cbx1.getSelectedItem());
                 cbx1.removeAllItems();
                 incarcaComboBox1(username, cbx1);
@@ -61,6 +65,7 @@ public class UtilizatorMeniu extends JFrame{
         b2.setPreferredSize(new Dimension(150, 30));
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // Acțiune pentru abonare
                 if(cbx2.getSelectedIndex() != 0){incarcaCategorieAbonament(username,(String)cbx2.getSelectedItem());
                 cbx1.removeAllItems();
                 incarcaComboBox1(username, cbx1);}
@@ -71,6 +76,7 @@ public class UtilizatorMeniu extends JFrame{
         b3.setPreferredSize(new Dimension(150, 30));
         b3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                // Acțiune pentru a vedea toate evenimentele curente
                 if (f == null) f = new GestiuneEvenimenteCurente(UtilizatorMeniu.this,username,rol);
                 f.setLocation(0, 0);
                 f.setSize(1300, 300);
@@ -84,6 +90,7 @@ public class UtilizatorMeniu extends JFrame{
         b8.setPreferredSize(new Dimension(150, 30));
         b8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                // Acțiune pentru a vedea evenimentele categoriei abonate
                 if (k == null) k = new GestionareEvenCateg(UtilizatorMeniu.this,username,rol);
                 k.setLocation(0, 0);
                 k.setSize(1300, 300);
@@ -100,6 +107,7 @@ public class UtilizatorMeniu extends JFrame{
         b4.setPreferredSize(new Dimension(150, 30));
         b4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                // Acțiune pentru a vedea evenimentele curente la care este abonat
                 if (g == null) g = new UtilizatorAbonamente(UtilizatorMeniu.this,username,rol);
                 g.setLocation(0, 0);
                 g.setSize(1300, 300);
@@ -112,6 +120,7 @@ public class UtilizatorMeniu extends JFrame{
         b6.setPreferredSize(new Dimension(150, 30));
         b6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                // Acțiune pentru a adăuga fonduri
                 if (h == null) h = new AdaugaFonduri(UtilizatorMeniu.this,username);
                 h.setSize(300, 100);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,6 +133,7 @@ public class UtilizatorMeniu extends JFrame{
         b7.setPreferredSize(new Dimension(150, 30));
         b7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                // Acțiune pentru a vedea codurile biletelor
                 if (i == null) i = new UtilizatorBilete(UtilizatorMeniu.this,username,rol);
                 i.setSize(300, 200);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,7 +146,7 @@ public class UtilizatorMeniu extends JFrame{
 
         
     
-
+        // Adăugăm componentele la panoul principal folosind constrângerile
         adaugaConstrangeri(l1,0,0,1,1, GridBagConstraints.WEST,0,10,0);
         adaugaConstrangeri(b1,0,2,1,1, GridBagConstraints.CENTER,0,10,0);
         adaugaConstrangeri(cbx1,0,1,1,1, GridBagConstraints.CENTER,0,10,0);
@@ -166,7 +176,7 @@ public class UtilizatorMeniu extends JFrame{
             }
         });
         p2.add(b5);
-
+        // Configurăm fereastra principală
         add(p1,BorderLayout.CENTER);
         add(p2,BorderLayout.SOUTH);
 
@@ -177,7 +187,7 @@ public class UtilizatorMeniu extends JFrame{
     }
 
     
-
+    // Metodă pentru a adăuga constrângerile pentru componentele din layout
     public void adaugaConstrangeri(JComponent c, int linie, int col, int latime, int inaltime, int anchor, int fill, int spatiuOX, int spatiuOY) {
         gbc.gridx = col;
         gbc.gridy = linie;
@@ -210,7 +220,7 @@ public class UtilizatorMeniu extends JFrame{
         gbc.insets = new Insets(0, 2 * spatiuOX, 0, 2 * spatiuOY);
         p1.add(c, gbc);
     }
-
+// Metodă pentru a obține bugetul unui utilizator dintr-un fișier
     public String buget(String username){
         String numeFisier = username + "Evenimente.txt";
         String line="";
@@ -223,7 +233,7 @@ public class UtilizatorMeniu extends JFrame{
         }
         return line;
     }
-
+    // Metodă pentru a șterge o categorie de abonament din fișier
     public void stergeCategorieAbonament(String username, String stringToDelete) {
         String numeFisier = username + "Evenimente.txt";
         File file = new File(numeFisier);
@@ -231,33 +241,32 @@ public class UtilizatorMeniu extends JFrame{
         try {
             StringBuilder content = new StringBuilder();
             boolean fileExists = file.exists();
-    
+     
             if (fileExists && file.length() != 0) {
-                // Read the existing content
+                // Citim conținutul existent
                 try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
-                    // Append the first line without modifications
+                    // Adauga prima linie
                     content.append(reader.readLine()).append(System.lineSeparator());
-                    // Read the second line
+                    // Citeste a doua linie
                     String secondLine = reader.readLine();
-                    // If the second line is not null, proceed
+                    // Daca a doua linie este goala
                     if (secondLine != null) {
-                        // Remove the segment from the second line
+                        // Elimina partea din linie
                         secondLine = secondLine.replace(stringToDelete+"$", "");
-                        // Append the modified second line
+                        // Afauga partea modificata
                         content.append(secondLine).append(System.lineSeparator());
                     }
-                    // Append the rest of the lines without modifications
+                    // Adauga si restul randului
                     String line;
                     while ((line = reader.readLine()) != null) {
                         content.append(line).append(System.lineSeparator());
                     }
                 }
             } else {
-                // If the file doesn't exist or is empty, do nothing
                 return;
             }
     
-            // Write the modified content back to the file
+            // Scrie textul modificat inapoi in fisier
             try (FileWriter writer = new FileWriter(file)) {
                 writer.write(content.toString());
             }
@@ -268,7 +277,7 @@ public class UtilizatorMeniu extends JFrame{
             e.printStackTrace();
         }
     }
-
+// Metodă pentru a încărca o categorie de abonament în fișier
     public void incarcaCategorieAbonament(String username, String newString) {
         String numeFisier = username + "Evenimente.txt";
         File file = new File(numeFisier);
@@ -307,7 +316,7 @@ public class UtilizatorMeniu extends JFrame{
         }
     }
 
-    
+    // Metodă pentru a încărca categoriile de abonament în combobox-ul cbx1
     public void incarcaComboBox1(String username, JComboBox cbx1) {
         String numeFisier = username + "Evenimente.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
@@ -326,7 +335,7 @@ public class UtilizatorMeniu extends JFrame{
         }
     }
 
-    
+     // Metodă pentru a încărca categoriile de evenimente în combobox-ul cbx2
     public void incarcaComboBox2() {
         String numeFisier = "categoriiEvenimente.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
