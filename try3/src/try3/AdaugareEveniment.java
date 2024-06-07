@@ -13,7 +13,10 @@ import java.awt.event.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-//dawdawwad
+import java.util.ArrayList;
+
+import java.util.List;
+
 public class AdaugareEveniment extends JFrame implements IGesEveniment {
     private JLabel[] l;
     private JLabel l0, pr;
