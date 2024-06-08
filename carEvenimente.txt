@@ -1,5 +1,5 @@
 8700
-Teatru$Film$
+Muzica$Film$
 3$Film$capra cu trei iezi$05/06/2024$11:11$cinema$200$120$3$1
 9$Sanatate$gat$03/06/2024$11:11$picioare$200$123$0$0
 2$Muzica$concert temisan$04/06/2024$11:11$sala polivalenta$200$120$3$1

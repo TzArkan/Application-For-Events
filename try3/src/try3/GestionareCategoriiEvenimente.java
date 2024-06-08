@@ -14,13 +14,14 @@ import javax.swing.*;
 
 public class GestionareCategoriiEvenimente extends JFrame {
     
-    private JFrame fereastraVeche;
-    private JLabel l1, l2;
-    private JTextField t1;
-    private JButton b1, b2, b3;
-    private GridBagConstraints gbc;
-    private JPanel p;
-    private JComboBox<String> cb;
+    private JFrame fereastraVeche;// Fereastra părinte
+    private JLabel l1, l2;// Etichete pentru adăugare și ștergere categorii
+    private JTextField t1;// Câmp de text pentru introducerea unei noi categorii
+    private JButton b1, b2, b3;// Butoane pentru adăugare, ștergere și revenire
+    private GridBagConstraints gbc;// Constrângeri pentru layout
+    private JPanel p;// Panou pentru layout-ul principal
+    private JComboBox<String> cb;// ComboBox pentru afișarea și selectarea categoriilor
+    // Metodă pentru gestionarea acțiunilor asupra categoriilor de evenimente
 
     public void selectieEveniment(int alegere) {
         if (alegere == 1) {
@@ -29,6 +30,7 @@ public class GestionareCategoriiEvenimente extends JFrame {
             stergeCategorie();
         }
     }
+    // Metodă pentru încărcarea categoriilor în ComboBox
 
     public void incarcaComboBox() {
     String numeFisier = "categoriiEvenimente.txt";
@@ -42,7 +44,18 @@ public class GestionareCategoriiEvenimente extends JFrame {
         e.printStackTrace();
     }
 }
-
+    /**
+     * Metodă pentru adăugarea constrângerilor la componente în layout-ul GridBag
+     * @param c Componenta
+     * @param linie Linia în GridBagLayout
+     * @param col Coloana în GridBagLayout
+     * @param latime Lățimea componentului
+     * @param inaltime Înălțimea componentului
+     * @param anchor Ancorarea componentei
+     * @param fill Modul de umplere a spațiului
+     * @param spatiuOX Spațiu pe axa X
+     * @param spatiuOY Spațiu pe axa Y
+     */
     public void adaugaConstrangeri(JComponent c, int linie, int col, int latime, int inaltime, int anchor, int fill, int spatiuOX, int spatiuOY) {
         gbc.gridx = col;
         gbc.gridy = linie;
@@ -75,7 +88,10 @@ public class GestionareCategoriiEvenimente extends JFrame {
         gbc.insets = new Insets(0, 2 * spatiuOX, 0, 2 * spatiuOY);
         p.add(c, gbc);
     }
-
+    /**
+     * Constructor pentru clasa GestionareCategoriiEvenimente
+     * @param fereastraVecheFrame Fereastra părinte
+     */
     public GestionareCategoriiEvenimente(JFrame fereastraVecheFrame) {
         super("Gestionare categorii de evenimente");
         this.fereastraVeche = fereastraVecheFrame;
@@ -125,11 +141,13 @@ public class GestionareCategoriiEvenimente extends JFrame {
 
         this.add(p, BorderLayout.CENTER);
         this.add(p2, BorderLayout.SOUTH);
-        this.pack(); // Adjust the frame size based on its content
+        this.pack(); // Ajustează dimensiunea ferestrei pe baza conținutului
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null); // Center the frame
+        this.setLocationRelativeTo(null); // Centrează fereastra
     }
-
+ /**
+     * Metodă pentru stocarea unei noi categorii în fișier
+     */
     private void stocheazaCategorie() {
         String adCat = t1.getText();
 
@@ -141,14 +159,16 @@ public class GestionareCategoriiEvenimente extends JFrame {
         String fileName = "categoriiEvenimente.txt";
         try (FileWriter fw = new FileWriter(fileName, true)) {
             fw.write(adCat + "\n");
-            fw.flush(); // Ensure data is written immediately
+            fw.flush();// Asigură scrierea imediată a datelor
             JOptionPane.showMessageDialog(this, "Categorie adaugata cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
             cb.addItem(adCat);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "A aparut o eroare la inregistrarea categoriei.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    /**
+    * Metodă pentru ștergerea unei categorii din fișier
+    */
     private void stergeCategorie() {
     int numarLinieCBSelectat=cb.getSelectedIndex();
     String numeFisier = "categoriiEvenimente.txt";

@@ -21,7 +21,7 @@ public class GestiuneEvenimenteCurente extends JFrame {
  private JPanel dedicatButoane,capeteTabelPanel,checkboxPanel,checkboxPanel0,PanouTabelCheckboxCombinat;
  private JCheckBox selectAllCheckbox;
  private JFrame f;
- 
+ /* Metodă pentru ștergerea unei linii din fișierul text*/
  private void stergeLinie(int numarLinie) {
     String numeFisier = "dateEvenimente.txt";
     try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
@@ -29,14 +29,14 @@ public class GestiuneEvenimenteCurente extends JFrame {
         String linie;
         int numarLinieCurent = 0;
 
-        // Read the first line to get the event count
+       // Citirea primei linii pentru a obține numărul de evenimente
         String firstLine = reader.readLine();
         if (firstLine != null) {
-            lines.add(firstLine); // add the first line to the list
-            numarLinieCurent++; // increment the line counter
+            lines.add(firstLine); // adăugarea primei linii în listă
+            numarLinieCurent++; // incrementarea contorului de linii
         }
 
-        // Read the rest of the lines
+        // Citirea restului liniilor
         while ((linie = reader.readLine()) != null) {
             if (numarLinieCurent != numarLinie + 1) { // +1 to account for the first line
                 lines.add(linie);
@@ -44,7 +44,7 @@ public class GestiuneEvenimenteCurente extends JFrame {
             numarLinieCurent++;
         }
 
-        // Write back the updated content
+       // Scrierea înapoi a conținutului actualizat
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(numeFisier))) {
             for (String line : lines) {
                 writer.write(line);
@@ -57,7 +57,7 @@ public class GestiuneEvenimenteCurente extends JFrame {
         e.printStackTrace();
     }
 }
-
+/* Metodă pentru abonarea unui utilizator la un eveniment*/
 public void abonareEveniment(int linie, String username) {
     String numeFisierEvenimente = "dateEvenimente.txt";  
     File numeFisierUtilizator = new File(username + "Evenimente.txt");  
@@ -67,7 +67,7 @@ public void abonareEveniment(int linie, String username) {
         String line;
         int numarLinieCurent = 0;
 
-        // Read all lines and store them
+        // Citirea tuturor liniilor și stocarea lor
         while ((line = reader.readLine()) != null) {
             lines.add(line);
             numarLinieCurent++;
@@ -77,26 +77,25 @@ public void abonareEveniment(int linie, String username) {
         return;
     }
 
-    // Check if the specified line exists
+    // Verificarea dacă linia specificată există
     if (linie >= lines.size()) {
         JOptionPane.showMessageDialog(null, "Linia specificată nu există.", "Eroare", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    // Get the line to be copied from the text file
+    // Obținerea liniei care trebuie copiată din fișierul text
     String linieDeCopiat = lines.get(linie+1);
 
-    // Append the line to the file
+    // Adăugarea liniei la fișierul utilizatorului
     try (FileWriter fw = new FileWriter(numeFisierUtilizator, true);
          BufferedWriter writer = new BufferedWriter(fw)) {  // Open BufferedWriter in try-with-resources
         writer.write(linieDeCopiat + "$0" + "\n");
-        // No need to call fw.flush(), BufferedWriter will automatically flush when closed
-        JOptionPane.showMessageDialog(null, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
+// Nu este nevoie să apelăm fw.flush(), BufferedWriter va face asta automat când este închis        JOptionPane.showMessageDialog(null, "Datele evenimentului au fost salvate cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
     } catch (IOException e) {
         JOptionPane.showMessageDialog(null, "A apărut o eroare la înregistrarea datelor.", "Eroare", JOptionPane.ERROR_MESSAGE);
     }
 }
-
+/* Metodă pentru copierea unei linii din fișierul text*/
 public void copiazaLinie(int linie) {
     String numeFisier = "dateEvenimente.txt";
     List<String> lines = new ArrayList<>();
@@ -105,13 +104,13 @@ public void copiazaLinie(int linie) {
     try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
         String line;
         
-        // Read the first line to get the event count
+          // Citirea primei linii pentru a obține numărul de evenimente
         String firstLine = reader.readLine();
         if (firstLine != null) {
             eventCount = Integer.parseInt(firstLine);
         }
         
-        // Read the rest of the lines and store them
+        // Citirea restului liniilor și stocarea lor
         while ((line = reader.readLine()) != null) {
             lines.add(line);
         }
@@ -120,24 +119,24 @@ public void copiazaLinie(int linie) {
         return;
     }
 
-    // Check if the specified line exists
+    // Verificarea dacă linia specificată există
     if (linie >= lines.size()) {
         JOptionPane.showMessageDialog(null, "Linia specificată nu există.", "Eroare", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    // Increment the event count
+    // Incrementarea numărului de evenimente
     eventCount++;
 
-    // Get the line to be copied and modify it
+    // Obținerea liniei care trebuie copiată și modificarea ei
     String linieDeCopiat = lines.get(linie);
     String[] segments = linieDeCopiat.split("\\$", 2);
     String modifiedLine = eventCount + "$" + (segments.length > 1 ? segments[1] : "");
 
-    // Append the modified line to the list of lines
+    // Adăugarea liniei modificate la lista de linii
     lines.add(modifiedLine);
 
-    // Write back the updated content to the file
+     // Scrierea înapoi a conținutului actualizat în fișier
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(numeFisier))) {
         writer.write(String.valueOf(eventCount));
         writer.newLine();
@@ -153,7 +152,7 @@ public void copiazaLinie(int linie) {
 
         
 
-
+// Metodă pentru selecția și gestionarea evenimentelor
 public void selectieEveniment(int alegere){
     int rowCount = tabel.getRowCount();
     if (alegere==1){

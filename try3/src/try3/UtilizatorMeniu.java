@@ -287,24 +287,24 @@ public class UtilizatorMeniu extends JFrame{
             boolean fileExists = file.exists();
 
             if (fileExists) {
-                // Read the existing content
+                // Citeste datele 
                 try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                    // Append the first line
+                    // Adauga prima linie
                     content.append(reader.readLine()).append(System.lineSeparator());
-                    // Append the second line
+                    // Adauga a doua linie 
                     content.append(newString).append("$");
-                    // Append the rest of the file
+                    // Adauga restul
                     String line;
                     while ((line = reader.readLine()) != null) {
                         content.append(line).append(System.lineSeparator());
                     }
                 }
             } else {
-                // If the file doesn't exist, initialize the first line with the new string
+                // Daca fisierul nu exista il initializam cu un sir gol
                 content.append(newString).append("$").append(System.lineSeparator());
             }
 
-            // Write the modified or new content back to the file
+            // Scrie continutul nou sau modificat
             try (FileWriter writer = new FileWriter(file)) {
                 writer.write(content.toString());
             }
@@ -320,9 +320,9 @@ public class UtilizatorMeniu extends JFrame{
     public void incarcaComboBox1(String username, JComboBox cbx1) {
         String numeFisier = username + "Evenimente.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(numeFisier))) {
-            // Skip the first line
+            // Sari peste prima linie
             reader.readLine();
-            // Read the second line
+            // Citeste a doua linie
             String line = reader.readLine();
             if (line != null) {
                 String[] items = line.split("\\$");

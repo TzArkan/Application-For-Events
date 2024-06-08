@@ -30,12 +30,12 @@ public class UtilizatorNotificare extends JFrame {
             br.readLine();
             br.readLine();
 
-            // Get the short date format instance
+            // Obține o instanță a formatului scurt de dată
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             sdf.setLenient(false);
-            // Get the current date
+           // Obține data curentă
             Date currentDate = new Date();
-            // Format the date using the short date format
+            // Formatează data folosind formatul scurt de dată
             String formattedDate = sdf.format(currentDate);
 
             p1 = new JPanel(new GridLayout(0, 1));
@@ -47,7 +47,7 @@ public class UtilizatorNotificare extends JFrame {
                 if (s.length >= 3) {
                     try {
                         Date eventDate = sdf.parse(s[3]);
-                        // Compare the event date with the current date
+                       // Compară data evenimentului cu data curentă
                         if (sdf.format(eventDate).equals(formattedDate)) {
                             String evenAzi="Evenimentul "+s[2]+" din categoria "+s[1]+" va avea loc astazi la ora "+s[4];
                             //Teatru$cuccuc$22/22/2022$22:22$asd$2313$0$0
@@ -55,7 +55,7 @@ public class UtilizatorNotificare extends JFrame {
                             p1.add(eventLabel);
                         }
                     } catch (ParseException e) {
-                        // Handle parsing error if the date is not in the correct format
+                        // Gestionare eroare de parsare dacă data nu este în formatul corect
                         System.err.println("Date format is incorrect for line: " + linie);
                     }
                 }

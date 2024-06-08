@@ -14,14 +14,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GestionareEvenCateg extends JFrame {
- private JTable t;
- private DefaultTableModel tabel;
- private JButton b1,b4;
- private JFrame parentFrame;
- private JPanel dedicatButoane,capeteTabelPanel,checkboxPanel,checkboxPanel0,PanouTabelCheckboxCombinat;
- private JCheckBox selectAllCheckbox;
+ private JTable t;// Tabel pentru afișarea evenimentelor
+ private DefaultTableModel tabel;// Modelul tabelului
+ private JButton b1,b4;// Butoane pentru abonare și întoarcere
+ private JFrame parentFrame;// Fereastra părinte
+ private JPanel dedicatButoane,capeteTabelPanel,checkboxPanel,checkboxPanel0,PanouTabelCheckboxCombinat;// Panouri pentru organizarea componentelor GUI
+ private JCheckBox selectAllCheckbox;// Checkbox pentru selectarea/deselectarea tuturor checkbox-urilor
  
-
+// Metodă pentru abonarea la un eveniment
 public void abonareEveniment(Object cod, String username) {
     String numeFisierEvenimente = "dateEvenimente.txt";  
     File numeFisierUtilizator = new File(username + "Evenimente.txt");  
@@ -32,10 +32,10 @@ public void abonareEveniment(Object cod, String username) {
         String line;
         int numarLinieCurent = 0;
 
-        // Read all lines and store them
+        // Citirea evenimentului pe baza codului
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split("\\$");
-            if (cod.equals(parts[0])) linieDeCopiat=line; // add data to the table
+            if (cod.equals(parts[0])) linieDeCopiat=line; // adauga date in tabel
         }
     } catch (IOException e) {
         e.printStackTrace();
@@ -43,7 +43,7 @@ public void abonareEveniment(Object cod, String username) {
     }
 
 
-    // Append the line to the file
+    // Adăugarea liniei în fișierul utilizatorului
     try (FileWriter fw = new FileWriter(numeFisierUtilizator, true);
          BufferedWriter writer = new BufferedWriter(fw)) {  // Open BufferedWriter in try-with-resources
         writer.write(linieDeCopiat + "$0" + "\n");
@@ -53,29 +53,29 @@ public void abonareEveniment(Object cod, String username) {
     }
 }
 
-
+// Metodă pentru încărcarea evenimentelor din fișier
 public void incarcaDinFisier(String username) {
-    tabel.setRowCount(0); 
+    tabel.setRowCount(0); // Resetează tabelul
     File fisier = new File(username + "Evenimente.txt");
 
     try (
         BufferedReader reader2 = new BufferedReader(new FileReader(fisier))
     ) {
         String line, lineCategorii;
-        reader2.readLine(); // skip the first line
-        lineCategorii = reader2.readLine(); // read categories from the second line
+        reader2.readLine(); // Sari peste prima linie
+        lineCategorii = reader2.readLine(); // Citește categoriile de pe a doua linie
 
         if (lineCategorii != null && !lineCategorii.trim().isEmpty()) {
             String[] partsCategorii = lineCategorii.split("\\$");
 
             for (String categorie : partsCategorii) {
                 try (BufferedReader reader1 = new BufferedReader(new FileReader("dateEvenimente.txt"))) {
-                    // Skip the first line if needed, depending on the file format
+                    // Sari peste prima linie dacă este nevoie
                     reader1.readLine();
                     while ((line = reader1.readLine()) != null) {
                         String[] parts = line.split("\\$");
                         if (parts.length > 1 && categorie.equals(parts[1])) {
-                            tabel.addRow(parts); // add data to the table
+                            tabel.addRow(parts); // Adaugă datele în tabel
                         }
                     }
                 }
@@ -85,7 +85,7 @@ public void incarcaDinFisier(String username) {
         e.printStackTrace();
     }
 }
-
+// Constructorul clasei
  public GestionareEvenCateg(JFrame parentFrame, String username, String rol){
     
     super("Gestionarea evenimentelor curente");
@@ -103,7 +103,7 @@ public void incarcaDinFisier(String username) {
     
     GridBagConstraints gbc=new GridBagConstraints();
     gbc.anchor=GridBagConstraints.WEST;
-    
+    // Adăugarea checkbox-urilor pentru fiecare linie din tabel
     for (int i = 0; i < tabel.getRowCount(); i++) {
             JCheckBox checkBox = new JCheckBox();
             checkBox.setPreferredSize(new Dimension(20, inaltimeLinie));
@@ -157,7 +157,7 @@ public void incarcaDinFisier(String username) {
     
     dedicatButoane=new JPanel();
 
-    
+     // Buton pentru abonare la eveniment
     b1=new JButton("Aboneaza-ma la eveniment");
     b1.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -176,7 +176,7 @@ public void incarcaDinFisier(String username) {
         });
     dedicatButoane.add(b1);
 
-
+        // Buton pentru întoarcerea la fereastra părinte
     b4=new JButton("Inapoi");
     b4.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
