@@ -17,18 +17,18 @@ import java.util.ArrayList;
 import java.util.List;
 //dawdawwad
 public class AdaugareEveniment extends JFrame implements IGesEveniment {
-    private JLabel[] l;
-    private JLabel l0, pr;
-    private JTextField[] t;
-    private JButton b1, b2;
-    private GridBagConstraints gbc;
-    private JPanel p, p2;
-    private JComboBox cb;
-    private AscultatorCampData acd;
-    private AscultatorCampOra aco;
-
+    private JLabel[] l;// Etichete pentru câmpurile de intrare
+    private JLabel l0, pr;// Etichete suplimentare
+    private JTextField[] t;// Câmpuri de text pentru introducerea datelor
+    private JButton b1, b2;// Butoane pentru adăugare eveniment și întoarcere
+    private GridBagConstraints gbc;// Constrângeri pentru layout-ul GridBag
+    private JPanel p, p2;// Panouri pentru organizarea componentelor
+    private JComboBox cb;// ComboBox pentru selectarea tipului de eveniment
+    private AscultatorCampData acd;// Ascultător pentru validarea câmpului de dată
+    private AscultatorCampOra aco;// Ascultător pentru validarea câmpului de oră
+    // Constructorul clasei
     public AdaugareEveniment(JFrame parentFrame) {
-        super("Adaugare de Evenimente");
+        super("Adaugare de Evenimente");// Titlul ferestrei
         String[] etichete = { "Numele evenimentului", "Data evenimentului: zz/ll/yyyy", "Ora de incepere a evenimentului: xx:xx", "Locatia evenimentului", "Pretul unui bilet", "Numar de bilete disponibile" };
         l = new JLabel[6];
         t = new JTextField[6];
@@ -45,11 +45,11 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
         pr = new JLabel("Lei");
         cb=new JComboBox();
         incarcaComboBox();
-
+        // Layout-ul panoului principal
         GridBagLayout gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
         p = new JPanel(gbl);
-
+        // Adăugarea componentelor în panou
         adaugaConstrangeri(l0, 0, 0, 1, 1, GridBagConstraints.WEST, 0, 10, 0);
         adaugaConstrangeri(cb, 0, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 10, 0);
         adaugaConstrangeri(l[0], 1, 0, 1, 1, GridBagConstraints.WEST, 0, 10, 0);
@@ -65,7 +65,7 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
         adaugaConstrangeri(l[5], 4, 0, 1, 1, GridBagConstraints.WEST, 0, 10, 0);
         adaugaConstrangeri(t[5], 4, 1, 1, 1, GridBagConstraints.CENTER, 0, 10, 0);
         adaugaConstrangeri(pr, 3, 2, 1, 1, GridBagConstraints.WEST, 0, 10, 0);
-
+ // Butoanele pentru adăugare eveniment și întoarcere
         b1 = new JButton("Adaugati eveniment");
         b1.addActionListener(new ActionListener() {
             @Override
@@ -81,17 +81,19 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
                 dispose();
             }
         });
-
+// Panoul pentru butoane
         p2 = new JPanel();
         p2.add(b1);
         p2.add(b2);
-
+ // Adăugarea panourilor în fereastră
         add(p, BorderLayout.CENTER);
         add(p2, BorderLayout.SOUTH);
+        // Setarea dimensiunilor ferestrei și centrarea acesteia pe ecran
 
-        pack();  // Adjusts window to preferred size based on layout
+        pack();  
         setLocationRelativeTo(null);  // Centers the window on the screen
     }
+    // Ascultător pentru validarea câmpului de oră
 
     private class AscultatorCampOra implements FocusListener {
         private Dialog o;
@@ -122,9 +124,9 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
         public void focusLost(FocusEvent e) {
             data = t[1].getText();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            sdf.setLenient(false); // Ensure strict parsing
+            sdf.setLenient(false); 
             try {
-                sdf.parse(data); // Try to parse the date
+                sdf.parse(data); 
             } catch (ParseException nf) {
                 d = new JDialog((JFrame) SwingUtilities.getWindowAncestor(t[1]), "Eroare");
                 d.add(new JLabel("   Introduceti data dupa formatul: dd/MM/yyyy"));
@@ -133,6 +135,7 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
             }
         }
     }
+        // Metodă pentru încărcarea datelor în ComboBox
 
     public void incarcaComboBox() {
         String numeFisier = "categoriiEvenimente.txt";
@@ -146,7 +149,7 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
             e.printStackTrace();
         }
     }
-
+ // Metodă pentru validarea formatului orei
     public boolean oraEvenimentValida(String ora) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         try {
@@ -156,23 +159,23 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
             return false;
         }
     }
-
+// Metodă pentru validarea formatului datei
     public boolean dataEvenimentValida(String dataEveniment) {
-        // Create a SimpleDateFormat instance with the desired format
+      
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        // Set lenient to false to enforce strict date parsing
+        
         sdf.setLenient(false);
     
         try {
-            // Try to parse the date
+            
             sdf.parse(dataEveniment);
             return true;
         } catch (ParseException e) {
-            // If parsing fails, return false
+          
             return false;
         }
     }
-
+// Metodă pentru validarea formatului prețului
     public boolean pretEvenimentValid(String s) {
         try {
             Integer.parseInt(s);
@@ -190,11 +193,13 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
             return false;
         }
     }
-
+ // Metodă pentru salvarea datelor evenimentului în fișier
     public void storeUserData() {
+         // Crearea unui obiect DateEveniment
         DateEveniment de = new DateEveniment(t[0].getText(), t[1].getText(), t[2].getText(), t[3].getText(), t[4].getText(), t[5].getText());
     
         if (!numarBilete(de.getNrBilete()) || cb.getSelectedIndex() == 0 || de.getNume().isEmpty() || !dataEvenimentValida(de.getData()) || !oraEvenimentValida(de.getOra()) || de.getLocatie().isEmpty() || !pretEvenimentValid(de.getPret())) {
+            // Validarea datelor introduse
             JOptionPane.showMessageDialog(this, "Introduceti toate datele corespunzatoare evenimentului", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -205,6 +210,7 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
         List<String> fileContents = new ArrayList<>();
     
         try {
+             // Verificarea existenței fișierului și citirea datelor
             if (!file.exists()) {
                 file.createNewFile();
                 eventNumber = 1;
@@ -225,18 +231,19 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
                 br.close();
             }
     
-            // Increment the event number and update the first line
+                       // Incrementarea numărului evenimentului și actualizarea primei linii
+
             if (fileContents.isEmpty()) {
                 fileContents.add(String.valueOf(eventNumber));
             } else {
                 fileContents.set(0, String.valueOf(eventNumber));
             }
     
-            // Append the new event data
+            // Adăugarea datelor noului eveniment
             String eventData = eventNumber + "$" + cb.getSelectedItem() + "$" + de.getNume() + "$" + de.getData() + "$" + de.getOra() + "$" + de.getLocatie() + "$" + de.getPret() + "$" + de.getNrBilete() + "$0";
             fileContents.add(eventData);
     
-            // Write back to the file
+          // Scrierea înapoi în fișier
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             for (String fileLine : fileContents) {
                 bw.write(fileLine);
@@ -250,7 +257,7 @@ public class AdaugareEveniment extends JFrame implements IGesEveniment {
             JOptionPane.showMessageDialog(this, "A aparut o eroare la inregistrarea datelor.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+// Metodă pentru adăugarea constrângerilor de layout
     public void adaugaConstrangeri(JComponent c, int linie, int col, int latime, int inaltime, int anchor, int fill, int spatiuOX, int spatiuOY) {
         gbc.gridx = col;
         gbc.gridy = linie;
