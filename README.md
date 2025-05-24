@@ -1,4 +1,4 @@
-# Project in collaboration with a colleague for university
+# Event Manager
 
 Designed to give an administrator the power to create and manage 
 different categories of events, and sell tickets through it,
